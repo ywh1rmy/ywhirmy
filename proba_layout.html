@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Perfect Box — Laborator de Structură</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ══════════════════════════════════════════
+       TOKENS & RESET
+    ══════════════════════════════════════════ */
+    :root {
+      --ink:     #0d0d0d;
+      --chalk:   #f5f0e8;
+      --accent:  #c84b31;
+      --mid:     #8a7f72;
+      --border:  3px double #0d0d0d;
+      --mono:    'DM Mono', monospace;
+      --serif:   'Playfair Display', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--chalk);
+      color: var(--ink);
+      font-family: var(--mono);
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    /* ── decorative grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ══════════════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════════════ */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: var(--border);
+    }
+    header .label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    header h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1;
+    }
+    header p {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--mid);
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION TITLES
+    ══════════════════════════════════════════ */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-title .badge {
+      background: var(--ink);
+      color: var(--chalk);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      white-space: nowrap;
+    }
+    .section-title h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* ══════════════════════════════════════════
+       A. FLEXBOX CHALLENGE
+    ══════════════════════════════════════════ */
+
+    /*
+     * COMENTARIU TEHNIC — Cum am "rupt" alinierea standard:
+     *
+     * Containerul folosește:
+     *   display: flex;
+     *   flex-wrap: wrap;        ← permite elementelor să se aranjeze pe mai multe rânduri
+     *
+     * Pentru a poziționa individual fiecare box fără a le afecta pe celelalte,
+     * am recurs la două tehnici complementare:
+     *
+     * 1. align-self — suprascrie align-items al părintelui DOAR pentru elementul vizat.
+     *    .box-1 { align-self: flex-start; }  → lipit sus
+     *    .box-3 { align-self: flex-end; }    → coborât jos
+     *
+     * 2. margin: auto — "mănâncă" tot spațiul liber disponibil pe axa respectivă.
+     *    .box-2 { margin: auto; }            → împinge egal în toate 4 direcții
+     *                                           = centru perfect pe ambele axe.
+     *    Aceasta funcționează deoarece flexbox distribuie spațiul liber ÎNAINTE
+     *    de a aplica alinierea, deci margin:auto capturează întregul spațiu rămas.
+     *
+     * Combinând cele două tehnici obținem poziționări complet independente
+     * ale celor 3 elemente într-un singur container flex.
+     */
+
+    .flex-section { margin-bottom: 3rem; }
+
+    /* Containerul principal — 80vh, bordură dublă */
+    .flex-container {
+      height: 80vh;
+      border: var(--border);                 /* bordură dublă (double) */
+      display: flex;
+      flex-wrap: wrap;
+      padding: 1rem;
+      position: relative;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Stiluri comune pentru toate box-urile */
+    .flex-container [class^="box-"] {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      border: 2px solid var(--ink);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .flex-container [class^="box-"]:hover {
+      transform: scale(1.04);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    /* .box-1 → stânga-sus
+       align-self: flex-start; menține elementul la capătul de sus al axei transversale */
+    .box-1 {
+      background: rgba(200, 75, 49, 0.12);
+      align-self: flex-start;               /* ← "rupe" alinierea → stânga-sus */
+    }
+
+    /* .box-2 → centru perfect pe ambele axe
+       margin: auto captează tot spațiul liber rămas → centrare absolută */
+    .box-2 {
+      background: rgba(13, 13, 13, 0.08);
+      margin: auto;                          /* ← "rupe" alinierea → centru pe X și Y */
+    }
+
+    /* .box-3 → dreapta-jos
+       margin-left: auto empinge spre dreapta; align-self: flex-end coboară jos */
+    .box-3 {
+      background: rgba(100, 150, 80, 0.15);
+      align-self: flex-end;                 /* ← "rupe" alinierea → jos */
+      margin-left: auto;                    /* ← "rupe" alinierea → dreapta */
+    }
+
+    /* etichete în colțuri */
+    .flex-label {
+      position: absolute;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      padding: 4px 8px;
+      background: var(--chalk);
+      border: 1px solid var(--mid);
+    }
+    .flex-label.tl { top: -1px; left: -1px; }
+    .flex-label.tr { top: -1px; right: -1px; }
+    .flex-label.bl { bottom: -1px; left: -1px; }
+    .flex-label.br { bottom: -1px; right: -1px; }
+
+    /* ══════════════════════════════════════════
+       B. GRID CHALLENGE
+    ══════════════════════════════════════════ */
+    .grid-section { margin-bottom: 2rem; }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;        /* 2 coloane egale */
+      gap: 25px;                             /* exact 25px conform cerinței */
+      padding: 1.5rem;
+      border: var(--border);
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Stiluri comune pentru celulele grilei */
+    .grid-container [class^="cell-"] {
+      padding: 1.5rem;
+      border: 1.5px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease;
+    }
+    .grid-container [class^="cell-"]:hover {
+      transform: translateY(-2px);
+    }
+
+    .cell-name {
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+    .cell-desc {
+      font-size: 0.65rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .cell-rule {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.75rem;
+    }
+
+    /* Elementul 1 — ocupă 2 coloane (lățime completă) */
+    .cell-1 {
+      grid-column: 1 / -1;                  /* span pe toate coloanele */
+      background: rgba(200, 75, 49, 0.10);
+      min-height: 120px;
+    }
+
+    /* Elementele 2 & 3 — coloane egale (implicit, câte 1fr fiecare) */
+    .cell-2 {
+      background: rgba(13, 13, 13, 0.06);
+    }
+    .cell-3 {
+      background: rgba(100, 150, 80, 0.10);
+    }
+
+    /* Elementul 4 — ocupă 2 coloane */
+    .cell-4 {
+      grid-column: 1 / -1;
+      background: rgba(100, 120, 200, 0.10);  /* rgba cu transparență */
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER / LEGEND
+    ══════════════════════════════════════════ */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--mid);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: var(--mid);
+    }
+    footer span { letter-spacing: 0.1em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════ HEADER -->
+  <header>
+    <p class="label">Sarcina 2 · Laborator de Structură</p>
+    <h1>The Perfect Box</h1>
+    <p>O demonstrație de precizie în Flexbox &amp; CSS Grid</p>
+  </header>
+
+  <!-- ═══════════════════════════════════ A. FLEXBOX -->
+  <section class="flex-section">
+    <div class="section-title">
+      <span class="badge">A</span>
+      <h2>Provocarea Flexbox — Poziționare Geometrică</h2>
+    </div>
+
+    <!--
+      COMENTARIU TEHNIC: Proprietăți folosite pentru "ruperea" alinierii standard
+      ──────────────────────────────────────────────────────────────────────────
+      Problema: într-un container flex cu flex-wrap: wrap, toate elementele
+      urmează implicit align-items (sau stretch). Avem nevoie ca fiecare
+      element să aibă o poziție complet diferită.
+
+      Soluția în două tehnici:
+
+      1) align-self: [valoare]
+         → Suprascrie align-items AL PĂRINTELUI doar pentru elementul specific.
+         → .box-1 { align-self: flex-start; }  = sus (axa transversală)
+         → .box-3 { align-self: flex-end; }    = jos (axa transversală)
+
+      2) margin: auto  (sau margin-left: auto)
+         → În Flexbox, margini "auto" absorb TOT spațiul liber disponibil
+           pe axa respectivă ÎNAINTE ca alinierea să fie calculată.
+         → .box-2 { margin: auto; }
+           = împinge egal dreapta + stânga + sus + jos → centru absolut
+         → .box-3 { margin-left: auto; }
+           = împinge spre dreapta (toată lățimea liberă e consumată la stânga)
+
+      Combinând align-self și margin: auto, obținem control complet și
+      independent al poziției fiecărui element fără a perturba fluxul celorlalte.
+    -->
+
+    <div class="flex-container">
+      <!-- Etichete decorative de colț -->
+      <span class="flex-label tl">stânga-sus</span>
+      <span class="flex-label tr">dreapta-sus</span>
+      <span class="flex-label bl">stânga-jos</span>
+      <span class="flex-label br">dreapta-jos</span>
+
+      <!-- .box-1: align-self: flex-start → stânga-sus -->
+      <div class="box-1">.box-1<br>stânga-sus</div>
+
+      <!-- .box-2: margin: auto → centru perfect pe ambele axe -->
+      <div class="box-2">.box-2<br>centru</div>
+
+      <!-- .box-3: align-self: flex-end + margin-left: auto → dreapta-jos -->
+      <div class="box-3">.box-3<br>dreapta-jos</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ B. GRID -->
+  <section class="grid-section">
+    <div class="section-title">
+      <span class="badge">B</span>
+      <h2>Provocarea Grid — Sistemul de Mozaic</h2>
+    </div>
+
+    <!--
+      COMENTARIU TEHNIC: Layout Grid cu 4 elemente
+      ─────────────────────────────────────────────
+      grid-template-columns: 1fr 1fr   → 2 coloane egale
+      gap: 25px                        → spațiu exact 25px între celule
+
+      .cell-1 { grid-column: 1 / -1 }  → ocupă toate coloanele (rândul 1, lățime completă)
+      .cell-2, .cell-3                 → câte 1fr fiecare, pe rândul 2 (coloane egale)
+      .cell-4 { grid-column: 1 / -1 }  → ocupă toate coloanele (rândul 3)
+
+      Fundalurile folosesc rgba() cu transparență pentru a păstra coerența vizuală.
+    -->
+
+    <div class="grid-container">
+
+      <!-- Elementul 1 — 2 coloane, rând 1 -->
+      <div class="cell-1">
+        <div>
+          <p class="cell-name">.cell-1</p>
+          <p class="cell-desc">Ocupă ambele coloane prin <code>grid-column: 1 / -1</code>.<br>Reprezintă "header"-ul mozaicului.</p>
+        </div>
+        <p class="cell-rule">grid-column: 1 / -1 · full width</p>
+      </div>
+
+      <!-- Elementul 2 — coloana 1, rând 2 -->
+      <div class="cell-2">
+        <div>
+          <p class="cell-name">.cell-2</p>
+          <p class="cell-desc">Coloana stângă, dimensiune <code>1fr</code>.</p>
+        </div>
+        <p class="cell-rule">col 1 · 1fr</p>
+      </div>
+
+      <!-- Elementul 3 — coloana 2, rând 2 -->
+      <div class="cell-3">
+        <div>
+          <p class="cell-name">.cell-3</p>
+          <p class="cell-desc">Coloana dreaptă, dimensiune <code>1fr</code>.</p>
+        </div>
+        <p class="cell-rule">col 2 · 1fr</p>
+      </div>
+
+      <!-- Elementul 4 — 2 coloane, rând 3 -->
+      <div class="cell-4">
+        <div>
+          <p class="cell-name">.cell-4</p>
+          <p class="cell-desc">Footer-ul mozaicului — din nou <code>grid-column: 1 / -1</code>.<br>Fundal: <code>rgba(100, 120, 200, 0.10)</code> cu transparență.</p>
+        </div>
+        <p class="cell-rule">grid-column: 1 / -1 · rgba background</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ FOOTER -->
+  <footer>
+    <span>proba_layout.html</span>
+    <span>Flexbox &amp; Grid · CSS Layout Demo</span>
+    <span>assets/docs/</span>
+  </footer>
+
+</body>
+</html>
