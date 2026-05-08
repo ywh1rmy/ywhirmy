@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beat Motion | Dance Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lila-bg: #d8a7d8;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --accent: #5e17eb;
+            --form-bg: rgba(255, 255, 255, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--lila-bg); color: var(--black); overflow-x: hidden; }
+
+        #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+
+        /* --- HEADER & NAV --- */
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(216, 167, 216, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-icon { width: 40px; height: 30px; display: flex; align-items: flex-end; gap: 3px; }
+        .bar { flex: 1; background: var(--black); animation: beat 0.8s infinite alternate; }
+        .bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+        .bar:nth-child(1), .bar:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+        @keyframes beat { from { transform: scaleY(0.5); } to { transform: scaleY(1.2); } }
+        .logo-text { font-family: 'Permanent Marker', cursive; font-size: 1.8rem; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav a { text-decoration: none; color: var(--black); font-weight: 700; transition: 0.3s; position: relative; }
+        nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--accent); transition: 0.3s; }
+        nav a:hover::after { width: 100%; }
+        
+        .nav-btn { background: var(--black); color: white !important; padding: 10px 20px; border-radius: 50px; }
+        .nav-btn:hover { background: var(--accent); transform: scale(1.05); }
+
+        /* --- HERO --- */
+        .hero {
+            text-align: center;
+            padding: 140px 20px 120px;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Decorative circles behind hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(94,23,235,0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse-glow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 3px dashed rgba(94,23,235,0.25);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin-slow 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
+        @keyframes spin-slow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+            border: 2px solid var(--black);
+            box-shadow: 4px 4px 0 var(--black);
+            animation: float-badge 3s ease-in-out infinite;
+        }
+
+        @keyframes float-badge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .hero h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(3rem, 7vw, 6rem);
+            text-shadow: 5px 5px 0px var(--white), 8px 8px 0px rgba(94,23,235,0.3);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgba(26,26,26,0.7);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta-primary {
+            padding: 16px 40px;
+            background: var(--black);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 6px 6px 0 var(--accent);
+        }
+
+        .hero-cta-primary:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .hero-cta-secondary {
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--black);
+            border: 3px solid var(--black);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .hero-cta-secondary:hover {
+            background: var(--black);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.5;
+            animation: bounce-hint 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .scroll-hint span { width: 2px; height: 30px; background: var(--black); display: block; }
+
+        @keyframes bounce-hint {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 40px 5%;
+            flex-wrap: wrap;
+            background: rgba(255,255,255,0.2);
+            border-top: 2px solid var(--black);
+            border-bottom: 2px solid var(--black);
+        }
+
+        .stat-item { text-align: center; }
+        .stat-number { font-family: 'Permanent Marker', cursive; font-size: 2.5rem; color: var(--accent); display: block; line-height: 1; }
+        .stat-label { font-size: 0.75rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; }
+
+        /* --- SERVICES --- */
+        .services-section { padding: 80px 5%; }
+        .section-title {
+            text-align: center;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .services { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+
+        .card {
+            padding: 35px 50px;
+            border: 3px solid var(--black);
+            border-radius: 15px;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.6rem;
+            background: var(--form-bg);
+            backdrop-filter: blur(5px);
+            transition: 0.4s;
+            cursor: pointer;
+            box-shadow: 8px 8px 0px var(--black);
+            position: relative;
+            overflow: hidden;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        /* Emoji above card text */
+        .card::before {
+            content: attr(data-emoji);
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            transition: 0.4s;
+        }
+
+        .card-desc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-top: 8px;
+            display: block;
+        }
+
+        .card:hover { transform: translateY(-12px) rotate(2deg); background: var(--white); box-shadow: 14px 14px 0px var(--accent); }
+        .card:hover::before { transform: scale(1.3) rotate(-5deg); }
+
+        /* --- DIVIDERS --- */
+        .divider { height: 40px; background: repeating-linear-gradient(90deg, var(--accent) 0 20px, transparent 20px 40px); animation: move 2s linear infinite; opacity: 0.7; }
+        @keyframes move { from { background-position: 0; } to { background-position: 40px; } }
+
+        /* --- REGISTRATION SECTION --- */
+        #inregistrare {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            padding: 80px 8%;
+            margin: 60px 5%;
+            background: var(--form-bg);
+            border-radius: 30px;
+            border: 3px solid var(--black);
+            backdrop-filter: blur(15px);
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1);
+        }
+
+        fieldset { border: 2px solid var(--black); padding: 25px; margin-bottom: 30px; border-radius: 15px; background: rgba(255,255,255,0.1); }
+        legend { font-family: 'Permanent Marker'; font-size: 1.4rem; padding: 0 15px; color: var(--accent); }
+
+        /* Floating Labels */
+        .input-group { position: relative; margin-bottom: 25px; }
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%; padding: 15px; border: 2px solid var(--black); border-radius: 10px;
+            background: white; outline: none; font-size: 1rem; transition: 0.3s;
+            autocomplete: on;
+        }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(94,23,235,0.15);
+        }
+        .input-group label { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); transition: 0.3s; pointer-events: none; color: #666; }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group textarea:focus + label,
+        .input-group textarea:not(:placeholder-shown) + label {
+            top: -12px; left: 10px; font-size: 0.85rem; font-weight: 900;
+            background: var(--white); padding: 2px 8px; color: var(--accent);
+            border: 2px solid var(--black); border-radius: 5px;
+        }
+
+        /* Character counter for textarea */
+        .char-counter {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #888;
+            margin-top: -18px;
+            margin-bottom: 10px;
+        }
+
+        /* Error Tooltips */
+        .error-hint { display: none; color: #d32f2f; font-size: 0.75rem; font-weight: bold; margin-top: 5px; }
+        input:invalid:focus ~ .error-hint { display: block; }
+
+        /* Success state */
+        input:valid:not(:placeholder-shown) {
+            border-color: #2e7d32;
+        }
+
+        /* Submit button with loading animation */
+        .btn-send {
+            width: 100%; padding: 20px; background: var(--black); color: white;
+            border: none; border-radius: 50px; font-size: 1.2rem; font-weight: 900;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 2px;
+            position: relative; overflow: hidden;
+        }
+
+        .btn-send::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: -100%;
+            width: 60px; height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-50%) skewX(-20deg);
+            transition: 0s;
+        }
+
+        .btn-send:hover::before {
+            left: 120%;
+            transition: 0.6s;
+        }
+
+        .btn-send:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(94, 23, 235, 0.3); }
+
+        .btn-send:active {
+            transform: translateY(0);
+            animation: loading-pulse 0.5s ease;
+        }
+
+        @keyframes loading-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.97); box-shadow: inset 0 0 20px rgba(255,255,255,0.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- SUCCESS OVERLAY --- */
+        #successOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26,26,26,0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        #successOverlay.show { display: flex; }
+
+        .success-box {
+            background: var(--lila-bg);
+            border: 4px solid var(--black);
+            border-radius: 30px;
+            padding: 60px 80px;
+            text-align: center;
+            box-shadow: 20px 20px 0 var(--accent);
+            animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pop-in {
+            from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+            to { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-emoji { font-size: 5rem; display: block; margin-bottom: 20px; animation: bounce-emoji 1s ease-in-out infinite; }
+        @keyframes bounce-emoji { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(5deg); } }
+
+        .success-box h2 { font-family: 'Permanent Marker', cursive; font-size: 2rem; margin-bottom: 10px; }
+        .success-box p { font-weight: 700; opacity: 0.7; margin-bottom: 30px; }
+        .success-close {
+            padding: 14px 40px; background: var(--accent); color: white;
+            border: 3px solid var(--black); border-radius: 50px; font-weight: 900;
+            font-size: 1rem; cursor: pointer; letter-spacing: 2px; text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .success-close:hover { background: var(--black); transform: translateY(-3px); }
+
+        /* --- CONTACT --- */
+        .contact-details { display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+        .contact-card { background: var(--black); color: white; padding: 30px; border-radius: 20px; transform: rotate(2deg); }
+        .contact-card p { margin: 15px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+
+        /* Social icons strip */
+        .social-strip {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 10px 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .social-btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+
+        /* Schedule mini-card */
+        .schedule-card {
+            background: var(--accent);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 3px solid var(--black);
+            transform: rotate(-2deg);
+        }
+
+        .schedule-card h3 { font-family: 'Permanent Marker'; font-size: 1.2rem; margin-bottom: 15px; }
+        .schedule-row { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .schedule-row:last-child { border-bottom: none; }
+
+        footer { text-align: center; padding: 40px; background: var(--black); color: white; margin-top: 50px; }
+        footer p { opacity: 0.7; font-size: 0.9rem; letter-spacing: 1px; }
+
+        @media (max-width: 900px) {
+            #inregistrare { grid-template-columns: 1fr; }
+            .contact-card, .schedule-card { transform: none; }
+            .stats-row { gap: 30px; }
+            nav ul { gap: 15px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul li:not(:last-child):not(:nth-last-child(2)) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="starCanvas"></canvas>
+
+<!-- SUCCESS OVERLAY -->
+<div id="successOverlay">
+    <div class="success-box">
+        <span class="success-emoji">🎉</span>
+        <h2>Înregistrat cu succes!</h2>
+        <p>Te așteptăm pe ringul de dans. 💃🕺</p>
+        <button class="success-close" id="successCloseBtn">Mergi Acasă</button>
+    </div>
+</div>
+
+<header>
+    <div class="logo-container">
+        <div class="logo-icon">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <div class="logo-text">beat MOTION</div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#home">Acasă</a></li>
+            <li><a href="#servicii">Servicii</a></li>
+            <li><a href="#inregistrare" class="nav-btn">Înregistrare</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <span class="hero-badge">✨ Studio de Dans · Chișinău</span>
+    <h1>DANSEAZĂ PE<br>RITMUL TĂU</h1>
+    <p class="hero-subtitle">Cursuri de dans profesionale pentru toate vârstele și toate nivelurile.</p>
+    <div class="hero-cta-group">
+        <a href="#inregistrare" class="hero-cta-primary">Înscrie-te acum</a>
+        <a href="#servicii" class="hero-cta-secondary">Explorează cursuri</a>
+    </div>
+    <div class="scroll-hint">
+        <span></span>
+        Scroll
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+    <div class="stat-item">
+        <span class="stat-number">200+</span>
+        <span class="stat-label">Elevi Activi</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">8</span>
+        <span class="stat-label">Instructori</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Stiluri de Dans</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">3+</span>
+        <span class="stat-label">Ani Experiență</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="services-section" id="servicii">
+    <h2 class="section-title">Stilurile Noastre</h2>
+    <div class="services">
+        <div class="card" data-emoji="🔥">
+            MODERN
+            <span class="card-desc">Expresie liberă</span>
+        </div>
+        <div class="card" data-emoji="🩰">
+            BALET
+            <span class="card-desc">Grație & tehnică</span>
+        </div>
+        <div class="card" data-emoji="🌟">
+            BEGINNERS
+            <span class="card-desc">Primul pas</span>
+        </div>
+    </div>
+</section>
+
+<div class="divider" style="animation-direction: reverse;"></div>
+
+<!-- REGISTRATION -->
+<section id="inregistrare">
+    <div class="form-side">
+        <form id="regForm" action="#" novalidate>
+            <fieldset>
+                <legend>DATE ACCES</legend>
+                <div class="input-group">
+                    <input type="text" id="user" name="username" placeholder=" "
+                        pattern="[a-z0-9]{5,}" required autocomplete="username">
+                    <label for="user">Username (min. 5 litere mici/cifre)</label>
+                    <span class="error-hint">Folosește doar litere mici și cifre (minim 5).</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="pass" name="password" placeholder=" "
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" required autocomplete="new-password">
+                    <label for="pass">Parolă (Complexă)</label>
+                    <span class="error-hint">Minim 8 caractere, o majusculă, un număr și un simbol.</span>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>REZERVARE CURS</legend>
+                <div class="input-group">
+                    <input type="date" id="date" name="date"
+                        min="2026-05-01" max="2026-05-31" required autocomplete="off">
+                    <label for="date" style="top: -12px; font-size: 0.85rem; background: white;">Data Rezervării (Mai 2026)</label>
+                </div>
+                <div class="input-group">
+                    <select id="curs" name="curs" required autocomplete="off">
+                        <option value="" disabled selected hidden></option>
+                        <option value="modern">Dans Modern</option>
+                        <option value="balet">Balet Contemporan</option>
+                        <option value="beginners">Beginners</option>
+                    </select>
+                    <label for="curs">Alege Stilul</label>
+                </div>
+                <div class="input-group">
+                    <textarea id="msg" name="msg" rows="3" placeholder=" " maxlength="200"></textarea>
+                    <label for="msg">Mesaj suplimentar...</label>
+                </div>
+                <div class="char-counter"><span id="charCount">0</span>/200</div>
+                <div class="input-group">
+                    <label style="position: static; transform: none; font-weight: 900;">Culoare Temă:</label>
+                    <input type="color" id="themeColor" value="#d8a7d8"
+                        style="height: 50px; cursor: pointer; padding: 5px;" autocomplete="off">
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn-send">Trimite Înscrierea 🚀</button>
+        </form>
+    </div>
+
+    <div class="contact-details">
+        <div class="contact-card">
+            <h2 style="font-family: 'Permanent Marker'; margin-bottom: 20px;">CONTACT RAPID</h2>
+            <p>📍 Str. Mișcării Nr. 10, Chișinău</p>
+            <p>📧 beatmotion@gmail.com</p>
+            <p>📞 +373 694 20 69 69</p>
+            <div class="social-strip">
+                <a href="#" class="social-btn">Instagram</a>
+                <a href="#" class="social-btn">TikTok</a>
+                <a href="#" class="social-btn">Facebook</a>
+            </div>
+            <div style="margin-top: 20px; border-top: 1px solid #444; padding-top: 20px; font-style: italic; font-size: 0.9rem; opacity: 0.7;">
+                "Dacă poți vorbi, poți cânta. Dacă poți merge, poți dansa."
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <h3>📅 Program Cursuri</h3>
+            <div class="schedule-row"><span>Luni / Miercuri</span><span>18:00–20:00</span></div>
+            <div class="schedule-row"><span>Marți / Joi</span><span>17:00–19:00</span></div>
+            <div class="schedule-row"><span>Sâmbătă</span><span>10:00–13:00</span></div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Beat Motion Studio | Toate drepturile rezervate.</p>
+</footer>
+
+<script>
+    // ── Star Background ──
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const stars = Array.from({ length: 100 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.1
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        stars.forEach(s => {
+            ctx.globalAlpha = Math.abs(Math.sin(Date.now() * 0.001 * s.speed));
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+            s.y -= s.speed;
+            if (s.y < 0) s.y = canvas.height;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // ── Theme Color ──
+    document.getElementById('themeColor').addEventListener('input', (e) => {
+        document.documentElement.style.setProperty('--lila-bg', e.target.value);
+        document.querySelector('header').style.background = e.target.value + 'cc';
+    });
+
+    // ── Character Counter ──
+    const msgArea = document.getElementById('msg');
+    const charCount = document.getElementById('charCount');
+    msgArea.addEventListener('input', () => {
+        charCount.textContent = msgArea.value.length;
+        charCount.style.color = msgArea.value.length > 180 ? '#d32f2f' : '#888';
+    });
+
+    // ── Form Submit → Success Overlay → Scroll to #home ──
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Basic HTML5 validation
+        if (!this.checkValidity()) {
+            this.reportValidity();
+            return;
+        }
+
+        // Show overlay
+        const overlay = document.getElementById('successOverlay');
+        overlay.classList.add('show');
+    });
+
+    // ── Close Overlay & go home ──
+    document.getElementById('successCloseBtn').addEventListener('click', function() {
+        document.getElementById('successOverlay').classList.remove('show');
+        // Reset form
+        document.getElementById('regForm').reset();
+        document.getElementById('charCount').textContent = '0';
+        // Scroll to top / #home
+        document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Also close on backdrop click
+    document.getElementById('successOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('successCloseBtn').click();
+        }
+    });
+</script>
+
+</body>
+</html>
