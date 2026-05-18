@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,282 +7,1175 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
         :root {
-            --lila-bg: #d8a7d8;
-            --black: #1a1a1a;
-            --white: #ffffff;
-            --accent: #5e17eb;
+            --color-purple-light: #d8a7d8;
+            --color-purple-deep: #5e17eb;
+            --color-black: #1a1a1a;
+            --color-white: #ffffff;
+            --color-green: #2e7d32;
+            --color-red: #d32f2f;
+            --color-blue: #1565c0;
+            --space-xs: 5px;
+            --space-sm: 10px;
+            --space-md: 20px;
+            --space-lg: 40px;
+            --space-xl: 80px;
+            --radius-sm: 10px;
+            --radius-md: 15px;
+            --radius-lg: 30px;
+            --radius-pill: 50px;
+            --border-base: 2px solid var(--color-black);
+            --border-thick: 3px solid var(--color-black);
+            --shadow-card: 8px 8px 0px var(--color-black);
+            --shadow-hover: 14px 14px 0px var(--color-purple-deep);
+            --shadow-btn: 6px 6px 0 var(--color-purple-deep);
+            --transition-base: 0.3s;
+            --transition-slow: 0.4s;
+            --lila-bg: var(--color-purple-light);
+            --black: var(--color-black);
+            --white: var(--color-white);
+            --accent: var(--color-purple-deep);
+            --form-bg: rgba(255,255,255,0.25);
+            --input-focus-color: var(--color-blue);
+            --input-valid-color: var(--color-green);
+            --input-invalid-color: var(--color-red);
+            --btn-disabled-bg: #aaa;
+            --btn-disabled-cursor: not-allowed;
+            --hero-text-shadow: 3px 3px 0 rgba(255,255,255,0.8), -1px -1px 0 rgba(255,255,255,0.6), 1px -1px 0 rgba(255,255,255,0.6), -1px 1px 0 rgba(255,255,255,0.6), 5px 5px 0px rgba(255,255,255,0.9), 8px 8px 0px rgba(94,23,235,0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
+        [data-theme="dark"] {
+            --lila-bg: #0f0a1e;
+            --black: #e8e0ff;
+            --white: #1a1030;
+            --accent: #a855f7;
+            --form-bg: rgba(30,20,60,0.6);
+            --border-base: 2px solid #a855f7;
+            --border-thick: 3px solid #a855f7;
+            --shadow-card: 8px 8px 0px #a855f7;
+            --shadow-hover: 14px 14px 0px #7c3aed;
+            --shadow-btn: 6px 6px 0 #7c3aed;
+            --btn-disabled-bg: #444;
+            --input-focus-color: #a855f7;
+            --input-valid-color: #4ade80;
+            --input-invalid-color: #f87171;
+            --hero-text-shadow: 3px 3px 0 rgba(0,0,0,0.8), -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6), -1px 1px 0 rgba(0,0,0,0.6), 5px 5px 0px rgba(0,0,0,0.9), 8px 8px 0px rgba(168,85,247,0.5);
         }
 
-        body {
-            background-color: var(--lila-bg);
-            color: var(--black);
-            overflow-x: hidden;
-            position: relative; 
-        }
+        [data-theme="dark"] body { background-color: #0f0a1e; color: #e8e0ff; }
+        [data-theme="dark"] .header { background: rgba(15,10,30,0.85); border-bottom: 2px solid #a855f7; }
+        [data-theme="dark"] .header__logo-bar { background: #a855f7; }
+        [data-theme="dark"] .nav__link { color: #e8e0ff; }
+        [data-theme="dark"] .nav__link--cta { background: #a855f7; color: #0f0a1e !important; }
+        [data-theme="dark"] .nav__link--cta:hover { background: #7c3aed; }
+        [data-theme="dark"] .stats-row { background: rgba(30,20,60,0.5); border-color: #a855f7; }
+        [data-theme="dark"] .card { background: rgba(30,20,60,0.7); border-color: #a855f7; color: #e8e0ff; box-shadow: 8px 8px 0px #a855f7; }
+        [data-theme="dark"] .card:hover { background: #1a1030; }
+        [data-theme="dark"] .orar-wrapper { border-color: #a855f7; box-shadow: 10px 10px 0 #a855f7; }
+        [data-theme="dark"] .orar-table { background: rgba(20,12,40,0.9); }
+        [data-theme="dark"] .orar-table__header-main th { background: #1a0a3e; border-color: #a855f7; color: #e8e0ff; }
+        [data-theme="dark"] .orar-table__header-cat th { background: #6d28d9; border-color: #a855f7; }
+        [data-theme="dark"] .orar-table__cell { border-color: rgba(168,85,247,0.3); color: #e8e0ff; }
+        [data-theme="dark"] .orar-table__cell--label { background: #6d28d9; border-color: #a855f7; }
+        [data-theme="dark"] .orar-table__row:hover { background: rgba(168,85,247,0.1); }
+        [data-theme="dark"] .orar-table__cell--price { color: #c084fc; }
+        [data-theme="dark"] .orar-table__cell--avail { background: rgba(74,222,128,0.1); color: #4ade80; }
+        [data-theme="dark"] .orar-table__cell--unavail { background: rgba(248,113,113,0.08); color: #f87171; }
+        [data-theme="dark"] .registration { background: rgba(20,12,45,0.7); border-color: #a855f7; box-shadow: 20px 20px 60px rgba(168,85,247,0.15); }
+        [data-theme="dark"] .form__fieldset { background: rgba(30,15,60,0.5); border-color: #a855f7; }
+        [data-theme="dark"] .form__legend { color: #c084fc; }
+        [data-theme="dark"] .form__input, [data-theme="dark"] .form__select, [data-theme="dark"] .form__textarea { background: #1a0a3e; border-color: #a855f7; color: #e8e0ff; }
+        [data-theme="dark"] .form__input::placeholder, [data-theme="dark"] .form__textarea::placeholder { color: #7c6fa0; }
+        [data-theme="dark"] .form__label { color: #9d8fc0; }
+        [data-theme="dark"] .form__input:focus + .form__label,
+        [data-theme="dark"] .form__input:not(:placeholder-shown) + .form__label,
+        [data-theme="dark"] .form__textarea:focus + .form__label,
+        [data-theme="dark"] .form__textarea:not(:placeholder-shown) + .form__label { background: #1a0a3e; color: #c084fc; border-color: #a855f7; }
+        [data-theme="dark"] .form__select option { background: #1a0a3e; color: #e8e0ff; }
+        [data-theme="dark"] .form__submit { background: #444; }
+        [data-theme="dark"] .form__submit--active { background: #a855f7; }
+        [data-theme="dark"] .form__submit--active:hover { background: #7c3aed; }
+        [data-theme="dark"] .contact-card { background: #1a0a3e; border: 2px solid #a855f7; }
+        [data-theme="dark"] .schedule-card { background: #6d28d9; border-color: #a855f7; }
+        [data-theme="dark"] .section-title { color: #e8e0ff; }
+        [data-theme="dark"] .hero__subtitle { color: rgba(232,224,255,0.7); }
+        [data-theme="dark"] .hero__cta--secondary { border-color: #a855f7; color: #e8e0ff; }
+        [data-theme="dark"] .hero__cta--secondary:hover { background: #a855f7; color: #0f0a1e; }
+        [data-theme="dark"] .success-box { background: #1a0a3e; border-color: #a855f7; box-shadow: 20px 20px 0 #7c3aed; }
+        [data-theme="dark"] #successOverlay { background: rgba(10,5,30,0.9); }
+        [data-theme="dark"] .footer { background: #07040f; border-top: 2px solid #a855f7; }
+        [data-theme="dark"] .hero__scroll-hint span { background: #a855f7; }
+        [data-theme="dark"] .hero__scroll-hint { color: #a855f7; }
+        [data-theme="dark"] .orar-table__cell--label { color: #fff; }
+        [data-theme="dark"] .media-section { background: rgba(20,12,45,0.7); border-color: #a855f7; box-shadow: 20px 20px 60px rgba(168,85,247,0.15); }
+        [data-theme="dark"] .media-block { border-color: #a855f7; box-shadow: 8px 8px 0px #a855f7; background: rgba(30,15,60,0.5); }
+        [data-theme="dark"] .media-block__title { color: #c084fc; }
+        [data-theme="dark"] .dance-modal__inner { background: #0f0a1e; border-color: #a855f7; box-shadow: 20px 20px 0 #7c3aed; }
+        [data-theme="dark"] .dance-modal__header { background: #1a0a3e; border-color: #a855f7; }
+        [data-theme="dark"] .dance-modal__subtitle { color: #c084fc; }
+        [data-theme="dark"] .dance-modal__close { background: #a855f7; color: #0f0a1e; border-color: #7c3aed; }
+        [data-theme="dark"] .dance-modal__close:hover { background: #7c3aed; }
+        [data-theme="dark"] .dance-modal__style-block { background: rgba(30,15,60,0.6); border-color: #a855f7; }
+        [data-theme="dark"] .dance-modal__style-block h4 { color: #c084fc; }
+        [data-theme="dark"] .dance-modal__style-block p { color: #b8a8e0; }
+        [data-theme="dark"] .dance-modal__teacher-card { background: rgba(30,15,60,0.8); border-color: #a855f7; }
+        [data-theme="dark"] .dance-modal__teacher-name { color: #e8e0ff; }
+        [data-theme="dark"] .dance-modal__teacher-role { color: #c084fc; }
+        [data-theme="dark"] .dance-modal__teacher-exp { color: #9d8fc0; }
+        [data-theme="dark"] .dance-modal__section-title { color: #e8e0ff; }
+        [data-theme="dark"] .dance-modal__section-title::after { background: #a855f7; }
+        [data-theme="dark"] .dance-modal__enroll-btn { background: #a855f7; box-shadow: 6px 6px 0 #7c3aed; }
+        [data-theme="dark"] .dance-modal__enroll-btn:hover { background: #7c3aed; }
+        [data-theme="dark"] .dance-modal__img-placeholder { background: rgba(168,85,247,0.15); border-color: #a855f7; color: #a855f7; }
 
-        #starCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        header {
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--lila-bg);
-            position: sticky;
-            top: 0;
-            z-index: 1001;
-        }
-
-        .logo-container {
-            display: flex;
+        /* ── HAMBURGER MENU ── */
+        .nav__hamburger {
+            display: none;
             flex-direction: column;
-            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+            z-index: 1002;
         }
-
-        .logo-icon {
-            width: 50px;
-            height: 30px;
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            margin-bottom: 5px;
-        }
-
-        .bar {
-            flex: 1;
+        .nav__hamburger span {
+            display: block;
+            width: 26px;
+            height: 3px;
             background: var(--black);
-            animation: beat 0.8s infinite alternate;
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
         }
-        .bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
-        .bar:nth-child(1), .bar:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+        .nav__hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+        .nav__hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        @keyframes beat {
-            from { transform: scaleY(0.5); }
-            to { transform: scaleY(1.2); }
+        .theme-toggle {
+            display: inline-flex; align-items: center; gap: 10px;
+            margin-top: 30px; padding: 12px 28px;
+            background: transparent; border: 3px solid var(--black);
+            border-radius: var(--radius-pill);
+            font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 900;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--black);
+            cursor: pointer; transition: background var(--transition-base), color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+            position: relative; z-index: 1; will-change: transform;
         }
+        .theme-toggle:hover { background: var(--black); color: var(--lila-bg); transform: translateY(-3px); box-shadow: var(--shadow-btn); }
+        .theme-toggle__icon { font-size: 1.1rem; transition: transform 0.4s ease; display: inline-block; }
+        .theme-toggle:hover .theme-toggle__icon { transform: rotate(20deg) scale(1.2); }
 
-        .logo-text {
-            font-weight: 900;
-            font-size: 1.8rem;
-            text-transform: lowercase;
-            line-height: 0.8;
-            letter-spacing: -1px;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--lila-bg); color: var(--black); overflow-x: hidden; transition: background-color 0.4s, color 0.4s; }
+
+        #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; will-change: transform; }
+
+        /* ── HEADER ── */
+        .header {
+            padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(216,167,216,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 1001;
+            border-bottom: var(--border-base);
+            transition: background 0.4s, border-color 0.4s;
         }
+        .header__logo { display: flex; align-items: center; gap: 12px; }
+        .header__logo-icon { width: 36px; height: 26px; display: flex; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+        .header__logo-bar { flex: 1; background: var(--black); animation: beat 0.8s infinite alternate; transition: background 0.4s; }
+        .header__logo-bar:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+        .header__logo-bar:nth-child(1), .header__logo-bar:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+        @keyframes beat { from { transform: scaleY(0.5); } to { transform: scaleY(1.2); } }
+        .header__logo-text { font-family: 'Permanent Marker', cursive; font-size: 1.6rem; white-space: nowrap; }
+        .nav__list { display: flex; list-style: none; gap: 28px; align-items: center; }
+        .nav__link { text-decoration: none; color: var(--black); font-weight: 700; transition: var(--transition-base); position: relative; white-space: nowrap; }
+        .nav__link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--accent); transition: var(--transition-base); }
+        .nav__link:hover::after { width: 100%; }
+        .nav__link--cta { background: var(--black); color: white !important; padding: 10px 18px; border-radius: var(--radius-pill); }
+        .nav__link--cta:hover { background: var(--accent); transform: scale(1.05); }
+        .nav__link--cta::after { display: none; }
 
-        .logo-sub { font-size: 0.8rem; letter-spacing: 3px; }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--black);
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: 0.3s;
-        }
-
-        nav a:hover { color: var(--accent); transform: translateY(-3px); }
-
-        /* --- ARROW DIVIDER ANIMAT --- */
-        .arrows-divider {
-            background: repeating-linear-gradient(
-                90deg,
-                var(--accent) 0,
-                var(--black) 20px,
-                transparent 20px,
-                transparent 40px
-            );
-            height: 40px;
-            width: 100%;
-            margin: 20px 0;
-            opacity: 0.9;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            
-            /* Animația de mișcare */
-            animation: moveArrows 2s linear infinite;
-            background-size: 40px 100%; /* Important pentru fluiditate */
-            position: relative;
-            z-index: 10;
-        }
-
-        @keyframes moveArrows {
-            from { background-position: 0 0; }
-            to { background-position: 40px 0; }
-        }
-
-        /* Efect de pulsare suplimentar pe divider */
-        .pulse {
-            animation: moveArrows 2s linear infinite, pulseOpacity 3s ease-in-out infinite;
-        }
-
-        @keyframes pulseOpacity {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
+        /* ── HERO ── */
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 120px 20px 100px;
             position: relative;
-            z-index: 10;
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            overflow: hidden;
         }
+        .hero::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(94,23,235,0.15) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: pulse-glow 4s ease-in-out infinite; pointer-events: none; }
+        .hero::after { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; border: 3px dashed rgba(94,23,235,0.25); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: spin-slow 20s linear infinite; will-change: transform; pointer-events: none; }
+        @keyframes pulse-glow { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; } 50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; } }
+        @keyframes spin-slow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
 
-        .hero h1 {
+        .hero__badge { display: inline-block; background: var(--accent); color: white; font-size: 0.72rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; padding: 8px 18px; border-radius: var(--radius-pill); margin-bottom: 22px; border: var(--border-base); box-shadow: 4px 4px 0 var(--black); animation: float-badge 3s ease-in-out infinite; will-change: transform; }
+        @keyframes float-badge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+        .hero__title {
             font-family: 'Permanent Marker', cursive;
-            font-size: 3.5rem;
+            font-size: clamp(2.4rem, 7vw, 6rem);
+            text-shadow: var(--hero-text-shadow);
             margin-bottom: 20px;
-            color: var(--black);
-        }
-
-        .contact-info {
-            text-align: right;
-            padding-right: 5%;
-            font-weight: bold;
+            line-height: 1.1;
             position: relative;
-            z-index: 10;
+            z-index: 1;
         }
+        [data-theme="light"] .hero__title { color: #1a1a1a; }
+        [data-theme="dark"] .hero__title { color: #e8e0ff; }
 
-        .services-clean {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 60px 10%;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 10;
-        }
+        .hero__subtitle { font-size: 1.05rem; font-weight: 700; color: rgba(26,26,26,0.7); max-width: 480px; margin: 0 auto 38px; position: relative; z-index: 1; text-shadow: 1px 1px 0 rgba(255,255,255,0.9), -1px -1px 0 rgba(255,255,255,0.9), 0 1px 4px rgba(255,255,255,0.7); }
+        [data-theme="dark"] .hero__subtitle { text-shadow: none; }
 
-        .service-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 2rem;
-            padding: 15px 35px;
-            border: 3px solid var(--black);
-            background: rgba(255, 255, 255, 0.2);
+        .section-title { text-align: center; font-family: 'Permanent Marker', cursive; font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: 45px; position: relative; text-shadow: 2px 2px 0 rgba(255,255,255,0.7), -1px -1px 0 rgba(255,255,255,0.5); }
+        [data-theme="dark"] .section-title { text-shadow: 2px 2px 0 rgba(0,0,0,0.7); }
+        .section-title::after { content: ''; display: block; width: 70px; height: 4px; background: var(--accent); margin: 12px auto 0; border-radius: 2px; }
+
+        .hero__cta-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; flex-direction: column; align-items: center; }
+        .hero__cta-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .hero__cta--primary { padding: 15px 36px; background: var(--black); color: white; border: none; border-radius: var(--radius-pill); font-size: 0.95rem; font-weight: 900; cursor: pointer; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); box-shadow: var(--shadow-btn); will-change: transform; }
+        .hero__cta--primary:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 8px 8px 0 var(--black); }
+        .hero__cta--secondary { padding: 15px 36px; background: transparent; color: var(--black); border: 3px solid var(--black); border-radius: var(--radius-pill); font-size: 0.95rem; font-weight: 900; cursor: pointer; text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); will-change: transform; }
+        .hero__cta--secondary:hover { background: var(--black); color: white; transform: translateY(-3px); }
+        .hero__scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.65rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; animation: bounce-hint 2s ease-in-out infinite; will-change: transform; z-index: 1; }
+        .hero__scroll-hint span { width: 2px; height: 28px; background: var(--black); display: block; }
+        @keyframes bounce-hint { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+        /* ── STATS ── */
+        .stats-row { display: flex; justify-content: center; gap: 40px; padding: var(--space-lg) 5%; flex-wrap: wrap; background: rgba(255,255,255,0.2); border-top: var(--border-base); border-bottom: var(--border-base); transition: background 0.4s, border-color 0.4s; }
+        .stats-row__item { text-align: center; }
+        .stats-row__number { font-family: 'Permanent Marker', cursive; font-size: 2.4rem; color: var(--accent); display: block; line-height: 1; }
+        .stats-row__label { font-size: 0.72rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; }
+
+        .divider { height: 36px; background: repeating-linear-gradient(90deg, var(--accent) 0 20px, transparent 20px 40px); animation: move 2s linear infinite; opacity: 0.7; }
+        @keyframes move { from { background-position: 0; } to { background-position: 40px; } }
+
+        /* ── SERVICES ── */
+        .services-section { padding: var(--space-xl) 5%; }
+        .services-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; min-height: 60px; position: relative; }
+
+        .card {
+            padding: 22px 32px 26px;
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            font-family: 'Permanent Marker', cursive; font-size: 1.5rem;
+            background: var(--form-bg);
             backdrop-filter: blur(5px);
-            border-radius: 12px;
-            transition: 0.4s;
+            transition: var(--transition-slow);
             cursor: pointer;
-            box-shadow: 8px 8px 0px var(--black);
-        }
-
-        .service-title:hover {
-            transform: scale(1.1) rotate(-2deg);
-            background: var(--white);
-            box-shadow: 12px 12px 0px var(--accent);
-        }
-
-        footer {
-            background: var(--black);
-            color: var(--white);
+            box-shadow: var(--shadow-card);
+            position: relative; overflow: hidden;
+            min-width: 190px;
+            width: calc(33% - 24px);
+            max-width: 260px;
             text-align: center;
-            padding: 30px;
+            will-change: transform;
+            color: var(--black);
+            user-select: none;
+        }
+        .card__img-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 12px;
+            border-radius: var(--radius-sm);
+            border: 2px dashed var(--accent);
+            background: rgba(94,23,235,0.06);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            transition: transform var(--transition-slow);
             position: relative;
-            z-index: 10;
+            overflow: hidden;
+        }
+        .card__desc { font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 1px; opacity: 0.7; margin-top: 8px; display: block; }
+        .card__click-hint { font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-top: 10px; display: block; opacity: 0; transition: opacity 0.3s; }
+        .card:hover { transform: translateY(-10px) rotate(2deg); background: var(--white); box-shadow: var(--shadow-hover); }
+        .card:hover .card__img-placeholder { transform: scale(1.06) rotate(-3deg); }
+        .card:hover .card__click-hint { opacity: 1; }
+
+        /* ── DANCE MODAL ── */
+        .dance-modal { display: none; position: fixed; inset: 0; background: rgba(26,26,26,0.85); z-index: 9998; justify-content: center; align-items: flex-start; backdrop-filter: blur(8px); overflow-y: auto; padding: 30px 16px; }
+        .dance-modal.show { display: flex; }
+        .dance-modal__inner { background: var(--lila-bg); border: var(--border-thick); border-radius: var(--radius-lg); max-width: 860px; width: 100%; box-shadow: 20px 20px 0 var(--accent); animation: pop-in 0.45s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
+        @keyframes pop-in { from { transform: scale(0.5) rotate(-3deg); opacity: 0; } to { transform: scale(1) rotate(0); opacity: 1; } }
+        .dance-modal__header { background: var(--accent); padding: 28px 30px 24px; position: relative; }
+        .dance-modal__title { font-family: 'Permanent Marker', cursive; font-size: clamp(1.5rem, 4vw, 2.2rem); color: white; text-shadow: 3px 3px 0 rgba(0,0,0,0.3); margin-bottom: 6px; }
+        .dance-modal__subtitle { font-size: 0.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); }
+        .dance-modal__close { position: absolute; top: 16px; right: 16px; background: white; color: var(--accent); border: 3px solid var(--black); border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition-base); line-height: 1; }
+        .dance-modal__close:hover { background: var(--black); color: white; transform: rotate(90deg) scale(1.1); }
+        .dance-modal__body { padding: 28px 24px; }
+        .dance-modal__section-title { font-family: 'Permanent Marker', cursive; font-size: 1.4rem; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+        .dance-modal__section-title::after { content: ''; flex: 1; height: 3px; background: var(--accent); border-radius: 2px; opacity: 0.4; }
+        .dance-modal__styles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+        .dance-modal__style-block { border: var(--border-base); border-radius: var(--radius-md); overflow: hidden; background: rgba(255,255,255,0.2); transition: transform 0.2s, box-shadow 0.2s; }
+        .dance-modal__style-block:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+        .dance-modal__img-placeholder { width: 100%; height: 140px; background: rgba(94,23,235,0.08); border-bottom: var(--border-base); display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 900; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; position: relative; overflow: hidden; }
+        .dance-modal__img-placeholder img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+        .dance-modal__style-text { padding: 14px 16px; }
+        .dance-modal__style-text h4 { font-family: 'Permanent Marker', cursive; font-size: 1.05rem; margin-bottom: 6px; color: var(--accent); }
+        .dance-modal__style-text p { font-size: 0.8rem; font-weight: 600; line-height: 1.6; opacity: 0.8; }
+        .dance-modal__teachers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 32px; }
+        .dance-modal__teacher-card { border: var(--border-base); border-radius: var(--radius-md); padding: 18px 14px; text-align: center; background: rgba(255,255,255,0.15); transition: transform 0.2s, box-shadow 0.2s; }
+        .dance-modal__teacher-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+        .dance-modal__teacher-avatar { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--accent); margin: 0 auto 10px; background: rgba(94,23,235,0.12); display: flex; align-items: center; justify-content: center; font-family: 'Permanent Marker', cursive; font-size: 1.3rem; color: var(--accent); overflow: hidden; }
+        .dance-modal__teacher-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .dance-modal__teacher-name { font-family: 'Permanent Marker', cursive; font-size: 0.9rem; margin-bottom: 4px; }
+        .dance-modal__teacher-role { font-size: 0.7rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+        .dance-modal__teacher-exp { font-size: 0.7rem; font-weight: 700; opacity: 0.6; }
+        .dance-modal__enroll-btn { display: block; width: 100%; padding: 18px; background: var(--black); color: white; border: none; border-radius: var(--radius-pill); font-size: 1rem; font-weight: 900; cursor: pointer; text-align: center; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); text-decoration: none; box-shadow: var(--shadow-btn); will-change: transform; }
+        .dance-modal__enroll-btn:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 8px 8px 0 var(--black); }
+
+        /* ── ORAR TABLE ── */
+        #orar { padding: var(--space-xl) 5%; }
+        .orar-wrapper { overflow-x: auto; border-radius: 18px; border: var(--border-thick); box-shadow: 10px 10px 0 var(--black); transition: border-color 0.4s, box-shadow 0.4s; -webkit-overflow-scrolling: touch; }
+        .orar-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); font-size: 0.88rem; min-width: 650px; transition: background 0.4s; }
+        .orar-table__header-main th { background: var(--black); color: white; font-family: 'Permanent Marker', cursive; font-size: 0.95rem; padding: 16px 14px; text-align: center; border: var(--border-base); letter-spacing: 1px; transition: background 0.4s; }
+        [data-theme="dark"] .orar-table__header-main th { color: #0f0a1e; }
+        .orar-table__header-cat th { background: var(--accent); color: white; font-weight: 900; font-size: 0.74rem; letter-spacing: 2px; text-transform: uppercase; padding: 9px 14px; text-align: center; border: var(--border-base); }
+        .orar-table__row { border-bottom: 2px solid rgba(26,26,26,0.12); transition: background 0.2s; }
+        .orar-table__row:hover { background: rgba(94,23,235,0.07); }
+        .orar-table__cell { padding: 12px 14px; border: 2px solid rgba(26,26,26,0.15); text-align: center; font-weight: 700; vertical-align: middle; color: var(--black); }
+        .orar-table__cell--label { background: var(--accent); color: white; font-family: 'Permanent Marker', cursive; font-size: 0.95rem; text-align: center; padding: 16px 12px; border: var(--border-base); vertical-align: middle; writing-mode: vertical-rl; transform: rotate(180deg); letter-spacing: 2px; }
+        .orar-table__cell--price { font-family: 'Permanent Marker', cursive; font-size: 1.05rem; color: var(--accent); }
+        .orar-table__cell--avail { background: rgba(46,125,50,0.12); color: #2e7d32; }
+        .orar-table__cell--unavail { background: rgba(211,47,47,0.08); color: #b71c1c; font-size: 0.82rem; }
+
+        /* ── REGISTRATION ── */
+        .registration { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; padding: 70px 8%; margin: 50px 5%; background: var(--form-bg); border-radius: var(--radius-lg); border: var(--border-thick); backdrop-filter: blur(15px); box-shadow: 20px 20px 60px rgba(0,0,0,0.1); transition: filter var(--transition-base), background 0.4s, border-color 0.4s; }
+        .registration:focus-within { filter: brightness(1.04); }
+        .form__fieldset { border: var(--border-base); padding: 22px; margin-bottom: 26px; border-radius: var(--radius-md); background: rgba(255,255,255,0.1); transition: border-color 0.4s, background 0.4s; }
+        .form__legend { font-family: 'Permanent Marker'; font-size: 1.3rem; padding: 0 12px; color: var(--accent); }
+        .form__input-group { position: relative; margin-bottom: 22px; }
+        .form__input, .form__select, .form__textarea { width: 100%; padding: 14px; border: 2px solid var(--black); border-radius: var(--radius-sm); background: white; outline: none; font-size: 1rem; transition: border-color var(--transition-base), box-shadow var(--transition-base), background 0.4s, color 0.4s; }
+        .form__input:focus, .form__select:focus, .form__textarea:focus { border-color: var(--input-focus-color); box-shadow: 0 0 0 3px rgba(21,101,192,0.15); }
+        .form__input:valid:not(:placeholder-shown), .form__select:valid:not([value=""]), .form__textarea:valid:not(:placeholder-shown) { border-color: var(--input-valid-color); box-shadow: 0 0 0 3px rgba(46,125,50,0.1); }
+        .form__input:invalid:not(:placeholder-shown), .form__select:invalid:not([value=""]), .form__textarea:invalid:not(:placeholder-shown) { border-color: var(--input-invalid-color); box-shadow: 0 0 0 3px rgba(211,47,47,0.12); }
+        .form__label { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); transition: var(--transition-base); pointer-events: none; color: #666; }
+        .form__input:focus + .form__label, .form__input:not(:placeholder-shown) + .form__label,
+        .form__textarea:focus + .form__label, .form__textarea:not(:placeholder-shown) + .form__label { top: -12px; left: 10px; font-size: 0.82rem; font-weight: 900; background: var(--white); padding: 2px 8px; color: var(--accent); border: var(--border-base); border-radius: 5px; }
+        .form__label--static { position: absolute; top: -12px; left: 10px; font-size: 0.82rem; background: white; }
+        .form__error-hint { display: none; color: var(--input-invalid-color); font-size: 0.74rem; font-weight: bold; margin-top: 5px; }
+        .form__input:invalid:not(:placeholder-shown) ~ .form__error-hint { display: block; }
+        .form__char-counter { text-align: right; font-size: 0.74rem; font-weight: 700; color: #888; margin-top: -16px; margin-bottom: 10px; }
+        .form__tc-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; font-size: 0.88rem; font-weight: 700; }
+        .form__tc-checkbox { width: 18px; height: 18px; cursor: pointer; accent-color: var(--accent); flex-shrink: 0; }
+        .form__submit { width: 100%; padding: 18px; background: var(--btn-disabled-bg); color: white; border: none; border-radius: var(--radius-pill); font-size: 1.1rem; font-weight: 900; cursor: var(--btn-disabled-cursor); transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base); text-transform: uppercase; letter-spacing: 2px; position: relative; overflow: hidden; pointer-events: none; will-change: transform; }
+        .form__submit::before { content: ''; position: absolute; top: 50%; left: -100%; width: 60px; height: 100%; background: rgba(255,255,255,0.2); transform: translateY(-50%) skewX(-20deg); transition: 0s; }
+        .form__submit:hover::before { left: 120%; transition: 0.6s; }
+        .form__submit--active { background: var(--black); cursor: pointer; pointer-events: all; animation: pulse-btn 1.6s ease-in-out infinite; }
+        .form__submit--active:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(94,23,235,0.3); animation: none; }
+        .form__submit--active:active { transform: translateY(0); animation: loading-pulse 0.5s ease; }
+        @keyframes pulse-btn { 0%,100% { box-shadow: 0 0 0 0 rgba(94,23,235,0.5); } 50% { box-shadow: 0 0 0 12px rgba(94,23,235,0); } }
+        @keyframes loading-pulse { 0% { transform: scale(1); } 50% { transform: scale(0.97); box-shadow: inset 0 0 20px rgba(255,255,255,0.3); } 100% { transform: scale(1); } }
+
+        /* ── SUCCESS OVERLAY ── */
+        #successOverlay { display: none; position: fixed; inset: 0; background: rgba(26,26,26,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 20px; }
+        #successOverlay.show { display: flex; }
+        .success-box { background: var(--lila-bg); border: 4px solid var(--black); border-radius: var(--radius-lg); padding: 50px 60px; text-align: center; box-shadow: 20px 20px 0 var(--accent); animation: pop-in 0.5s cubic-bezier(0.34,1.56,0.64,1); max-width: 460px; width: 100%; }
+        .success-box__emoji { font-size: 4.5rem; display: block; margin-bottom: 18px; animation: bounce-emoji 1s ease-in-out infinite; will-change: transform; }
+        @keyframes bounce-emoji { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-14px) rotate(5deg); } }
+        .success-box__title { font-family: 'Permanent Marker', cursive; font-size: 1.8rem; margin-bottom: 10px; }
+        .success-box__text { font-weight: 700; opacity: 0.7; margin-bottom: 28px; }
+        .success-box__close { padding: 13px 36px; background: var(--accent); color: white; border: var(--border-thick); border-radius: var(--radius-pill); font-weight: 900; font-size: 0.95rem; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); }
+        .success-box__close:hover { background: var(--black); transform: translateY(-3px); }
+
+        /* ── CONTACT PANEL ── */
+        .contact-panel { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+        .contact-card { background: var(--black); color: white; padding: 26px; border-radius: 18px; transform: rotate(2deg); transition: background 0.4s, border-color 0.4s; }
+        .contact-card__title { font-family: 'Permanent Marker'; margin-bottom: 18px; font-size: 1.1rem; }
+        .contact-card__line { margin: 12px 0; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
+        .contact-card__quote { margin-top: 18px; border-top: 1px solid #444; padding-top: 18px; font-style: italic; font-size: 0.85rem; opacity: 0.7; }
+        .social-strip { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+        .social-strip__btn { padding: 9px 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: var(--radius-pill); font-size: 0.78rem; font-weight: 900; color: white; text-decoration: none; transition: var(--transition-base); letter-spacing: 1px; }
+        .social-strip__btn:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+        .maps-btn { display: inline-flex; align-items: center; gap: 8px; margin: 4px 0 10px; padding: 9px 16px; background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 900; text-decoration: none; letter-spacing: 1px; transition: var(--transition-base); }
+        .maps-btn:hover { background: #4285F4; border-color: #4285F4; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(66,133,244,0.45); }
+        .schedule-card { background: var(--accent); color: white; padding: 22px; border-radius: 18px; border: var(--border-thick); transform: rotate(-2deg); transition: background 0.4s, border-color 0.4s; }
+        .schedule-card__title { font-family: 'Permanent Marker'; font-size: 1.1rem; margin-bottom: 14px; }
+        .schedule-card__row { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.2); gap: 8px; }
+        .schedule-card__row:last-child { border-bottom: none; }
+
+        /* ── MEDIA SECTION ── */
+        .media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 70px 8%; margin: 0 5% 50px; background: var(--form-bg); border-radius: var(--radius-lg); border: var(--border-thick); backdrop-filter: blur(15px); box-shadow: 20px 20px 60px rgba(0,0,0,0.1); transition: background 0.4s, border-color 0.4s; }
+        .media-block { display: flex; flex-direction: column; gap: 14px; }
+        .media-block__title { font-family: 'Permanent Marker', cursive; font-size: 1.3rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .media-block__title::after { content: ''; flex: 1; height: 3px; background: var(--accent); border-radius: 2px; opacity: 0.4; }
+        .media-block__frame-wrap { border: var(--border-thick); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); transition: box-shadow var(--transition-base), border-color 0.4s; line-height: 0; }
+        .media-block__frame-wrap:hover { box-shadow: var(--shadow-hover); }
+        .media-block__frame-wrap iframe { width: 100%; height: 300px; border: none; display: block; }
+
+        /* ── FOOTER ── */
+        .footer { text-align: center; padding: var(--space-lg); background: var(--black); color: white; margin-top: 50px; transition: background 0.4s; }
+        .footer__text { opacity: 0.7; font-size: 0.88rem; letter-spacing: 1px; }
+
+        /* ════════════════════════════════
+           RESPONSIVE — TABLET (≤900px)
+        ════════════════════════════════ */
+        @media (max-width: 900px) {
+            .header { padding: 1rem 4%; }
+            .header__logo-text { font-size: 1.4rem; }
+
+            /* Nav hamburger */
+            .nav__hamburger { display: flex; }
+            .nav { position: relative; }
+            .nav__list {
+                display: none;
+                flex-direction: column;
+                gap: 0;
+                position: absolute;
+                top: calc(100% + 12px);
+                right: 0;
+                background: var(--lila-bg);
+                border: var(--border-thick);
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-card);
+                padding: 10px 0;
+                min-width: 200px;
+                z-index: 1003;
+            }
+            .nav__list.open { display: flex; }
+            .nav__list li { width: 100%; }
+            .nav__link { display: block; padding: 12px 22px; font-size: 0.95rem; }
+            .nav__link::after { display: none; }
+            .nav__link--cta { margin: 8px 14px; border-radius: var(--radius-pill); text-align: center; display: block; }
+            [data-theme="dark"] .nav__list { background: #0f0a1e; border-color: #a855f7; }
+
+            .hero { padding: 100px 20px 90px; }
+            .hero::after { width: 280px; height: 280px; }
+            .hero::before { width: 400px; height: 400px; }
+
+            .stats-row { gap: 20px; }
+            .stats-row__number { font-size: 2rem; }
+
+            /* Cards — 2 per row on tablet */
+            .card { width: calc(50% - 12px); max-width: none; }
+
+            .registration { grid-template-columns: 1fr; gap: 30px; padding: 50px 6%; margin: 40px 4%; }
+            .contact-card, .schedule-card { transform: none; }
+
+            .media-section { grid-template-columns: 1fr; gap: 28px; padding: 50px 6%; margin: 0 4% 40px; }
+            .media-block__frame-wrap iframe { height: 260px; }
+
+            .dance-modal__styles-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* ════════════════════════════════
+           RESPONSIVE — MOBILE (≤600px)
+        ════════════════════════════════ */
+        @media (max-width: 600px) {
+            .header { padding: 0.9rem 4%; }
+            .header__logo-text { font-size: 1.25rem; }
+            .header__logo-icon { width: 30px; height: 22px; }
+
+            .hero { padding: 90px 16px 80px; min-height: 100svh; }
+            .hero::after { width: 220px; height: 220px; }
+            .hero__badge { font-size: 0.62rem; letter-spacing: 2px; padding: 7px 14px; }
+            .hero__subtitle { font-size: 0.95rem; }
+            .hero__cta--primary, .hero__cta--secondary { padding: 13px 26px; font-size: 0.85rem; letter-spacing: 1px; }
+            .theme-toggle { padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1px; }
+
+            .stats-row { gap: 14px; padding: 24px 4%; }
+            .stats-row__number { font-size: 1.8rem; }
+            .stats-row__label { font-size: 0.65rem; letter-spacing: 1px; }
+
+            .services-section { padding: 50px 4%; }
+            /* Cards — 1 per row on mobile */
+            .card { width: 100%; max-width: 320px; margin: 0 auto; }
+
+            #orar { padding: 50px 4%; }
+            .orar-wrapper { border-radius: 12px; }
+            .orar-table { font-size: 0.78rem; min-width: 560px; }
+            .orar-table__header-main th,
+            .orar-table__cell { padding: 10px 8px; }
+            .orar-table__cell--label { padding: 12px 8px; font-size: 0.82rem; }
+
+            .registration { padding: 36px 5%; margin: 28px 3%; border-radius: 20px; }
+            .form__fieldset { padding: 18px 14px; }
+            .form__legend { font-size: 1.1rem; }
+            .form__input, .form__select, .form__textarea { padding: 12px; font-size: 0.95rem; }
+            .form__submit { font-size: 1rem; padding: 16px; }
+
+            .contact-card, .schedule-card { border-radius: 14px; }
+            .contact-card { padding: 20px; }
+            .schedule-card { padding: 18px; }
+            .schedule-card__row { flex-direction: column; gap: 2px; align-items: flex-start; }
+
+            .media-section { padding: 36px 5%; margin: 0 3% 36px; border-radius: 20px; }
+            .media-block__frame-wrap iframe { height: 220px; }
+
+            .success-box { padding: 36px 28px; }
+            .success-box__emoji { font-size: 3.5rem; }
+            .success-box__title { font-size: 1.5rem; }
+
+            /* Modal on mobile */
+            .dance-modal { padding: 16px 12px; }
+            .dance-modal__inner { border-radius: 20px; box-shadow: 10px 10px 0 var(--accent); }
+            .dance-modal__header { padding: 22px 20px 18px; }
+            .dance-modal__body { padding: 20px 16px; }
+            .dance-modal__styles-grid { grid-template-columns: 1fr; gap: 14px; }
+            .dance-modal__teachers-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+            .dance-modal__img-placeholder { height: 110px; }
+            .dance-modal__enroll-btn { font-size: 0.9rem; padding: 15px; letter-spacing: 1px; }
+        }
+
+        /* ════════════════
+           SMALL MOBILE
+        ════════════════ */
+        @media (max-width: 380px) {
+            .hero__title { font-size: 2rem; }
+            .hero__cta-btns { flex-direction: column; width: 100%; }
+            .hero__cta--primary, .hero__cta--secondary { width: 100%; text-align: center; }
+            .stats-row { flex-wrap: wrap; }
+            .stats-row__item { flex: 1 1 calc(50% - 14px); }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="starCanvas"></canvas>
+<canvas id="starCanvas"></canvas>
 
-    <header>
-        <div class="logo-container">
-            <div class="logo-icon">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <div class="logo-text">beat</div>
-            <div class="logo-sub">MOTION</div>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Acasă</a></li>
-                <li><a href="#">Servicii</a></li>
-                <li><a href="#">Despre</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="contact-info">
-        <p>beatmotion@gmail.com</p>
-        <p>+373 694 20 69 69</p>
+<div id="successOverlay">
+    <div class="success-box">
+        <span class="success-box__emoji">🎉</span>
+        <h2 class="success-box__title">Inregistrat cu succes!</h2>
+        <p class="success-box__text">Te asteptam pe ringul de dans. 💃🕺</p>
+        <button class="success-box__close" id="successCloseBtn">Mergi Acasa</button>
     </div>
+</div>
 
-    <!-- Divider cu animație de mișcare -->
-    <div class="arrows-divider pulse"></div>
+<!-- MODERN MODAL -->
+<div class="dance-modal" id="modal-modern">
+    <div class="dance-modal__inner">
+        <div class="dance-modal__header">
+            <div class="dance-modal__title">Dans Modern</div>
+            <div class="dance-modal__subtitle">Expresie libera · Energie · Creativitate</div>
+            <button class="dance-modal__close" onclick="closeModal('modal-modern')">✕</button>
+        </div>
+        <div class="dance-modal__body">
+            <h3 class="dance-modal__section-title">Stiluri pe care le predam</h3>
+            <div class="dance-modal__styles-grid">
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="danscontemporary.jpg.lnk" alt="Contemporary" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Contemporary</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Contemporary</h4>
+                        <p>Dans modern bazat pe improvizatie si fluiditate. Combinam tehnici din jazz, balet si dans liber pentru a crea miscari autentice care spun povesti.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="Hip-Hop Fusion.jpg.lnk" alt="Hip-Hop Fusion" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Hip-Hop Fusion</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Hip-Hop Fusion</h4>
+                        <p>Combinatie exploziva de street dance cu elemente moderne. Ritm, energie si stil — perfect pentru cei care vor sa simta muzica din plin.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="lyrical.jpg.lnk" alt="Lyrical" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Lyrical</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Lyrical</h4>
+                        <p>Dans expresiv si emotional, inspirat din versurile melodiei. Fiecare miscare transmite un sentiment — ideal pentru dansatori cu suflet artistic.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="JazzModern.jpg.lnk" alt="Jazz Modern" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Jazz Modern</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Jazz Modern</h4>
+                        <p>Tehnici clasice de jazz reinterpretate cu o estetica contemporana. Vivacitate, sincope ritmice si o prezenta scenica irezistibila.</p>
+                    </div>
+                </div>
+            </div>
+            <h3 class="dance-modal__section-title">Profesorii nostri</h3>
+            <div class="dance-modal__teachers-grid">
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl1.jpg" alt="Mia" onerror="this.style.display='none'; this.parentElement.textContent='M'"></div>
+                    <div class="dance-modal__teacher-name">Mia Rusu</div>
+                    <div class="dance-modal__teacher-role">Contemporary</div>
+                    <div class="dance-modal__teacher-exp">8 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="boy1.jpg" alt="Alex" onerror="this.style.display='none'; this.parentElement.textContent='A'"></div>
+                    <div class="dance-modal__teacher-name">Alex Popa</div>
+                    <div class="dance-modal__teacher-role">Hip-Hop Fusion</div>
+                    <div class="dance-modal__teacher-exp">6 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl2.jpg" alt="Diana" onerror="this.style.display='none'; this.parentElement.textContent='D'"></div>
+                    <div class="dance-modal__teacher-name">Diana Lungu</div>
+                    <div class="dance-modal__teacher-role">Lyrical · Jazz</div>
+                    <div class="dance-modal__teacher-exp">10 ani experienta</div>
+                </div>
+            </div>
+            <a href="#inregistrare" class="dance-modal__enroll-btn" onclick="closeModal('modal-modern')">Inscrie-te la Dans Modern 🚀</a>
+        </div>
+    </div>
+</div>
 
-    <section class="hero">
-        <h1>Descoperă ritmul tău!</h1>
-        <p><b>Cursuri de dans pentru toate nivelurile</b></p>
-    </section>
+<!-- BALET MODAL -->
+<div class="dance-modal" id="modal-balet">
+    <div class="dance-modal__inner">
+        <div class="dance-modal__header">
+            <div class="dance-modal__title">Balet</div>
+            <div class="dance-modal__subtitle">Gratie · Tehnica · Eleganta</div>
+            <button class="dance-modal__close" onclick="closeModal('modal-balet')">✕</button>
+        </div>
+        <div class="dance-modal__body">
+            <h3 class="dance-modal__section-title">Stiluri pe care le predam</h3>
+            <div class="dance-modal__styles-grid">
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="baletclasic.jpg.lnk" alt="Balet Clasic" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Balet Clasic</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Balet Clasic</h4>
+                        <p>Tehnica traditionala cu origini in Franta si Rusia. Pozitii corecte, disciplina si eleganta — fundamentul oricarui dansator serios.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="baletcontemporan.jpg.lnk" alt="Balet Contemporan" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Contemporan</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Balet Contemporan</h4>
+                        <p>Tehnica clasica imbinata cu libertatea miscarii moderne. Exploram limitele corpului mentinand in acelasi timp precizia si gratia baletului.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="barrefitness.jpg.lnk" alt="Barre Fitness" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Barre Fitness</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Barre Fitness</h4>
+                        <p>Antrenament inspirat din balet la bara de sprijin. Tonifiere, flexibilitate si postura impecabila — fara a fi nevoie de experienta anterioara.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="pointeworkkk.jpg" alt="Pointe Work" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Pointe Work</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Pointe Work</h4>
+                        <p>Dans pe varfuri pentru elevi avansati. Necesita o baza solida de balet clasic si pregatire speciala a picioarelor — magia pura a baletului.</p>
+                    </div>
+                </div>
+            </div>
+            <h3 class="dance-modal__section-title">Profesorii nostri</h3>
+            <div class="dance-modal__teachers-grid">
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl3.jpg" alt="Elena" onerror="this.style.display='none'; this.parentElement.textContent='E'"></div>
+                    <div class="dance-modal__teacher-name">Elena Moraru</div>
+                    <div class="dance-modal__teacher-role">Balet Clasic</div>
+                    <div class="dance-modal__teacher-exp">15 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl4.jpg" alt="Sofia" onerror="this.style.display='none'; this.parentElement.textContent='S'"></div>
+                    <div class="dance-modal__teacher-name">Sofia Cojocaru</div>
+                    <div class="dance-modal__teacher-role">Contemporan · Pointe</div>
+                    <div class="dance-modal__teacher-exp">12 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl5.jpg" alt="Natalia" onerror="this.style.display='none'; this.parentElement.textContent='N'"></div>
+                    <div class="dance-modal__teacher-name">Natalia Botnaru</div>
+                    <div class="dance-modal__teacher-role">Barre Fitness</div>
+                    <div class="dance-modal__teacher-exp">7 ani experienta</div>
+                </div>
+            </div>
+            <a href="#inregistrare" class="dance-modal__enroll-btn" onclick="closeModal('modal-balet')">Inscrie-te la Balet 🩰</a>
+        </div>
+    </div>
+</div>
 
-    <section class="services-clean">
-        <h3 class="service-title">Dans Modern</h3>
-        <h3 class="service-title">Dans Hip-Hop</h3>
-        <h3 class="service-title">Incepatori</h3>
-    </section>
+<!-- BEGINNERS MODAL -->
+<div class="dance-modal" id="modal-beginners">
+    <div class="dance-modal__inner">
+        <div class="dance-modal__header">
+            <div class="dance-modal__title">Beginners</div>
+            <div class="dance-modal__subtitle">Primul tau pas pe ringul de dans</div>
+            <button class="dance-modal__close" onclick="closeModal('modal-beginners')">✕</button>
+        </div>
+        <div class="dance-modal__body">
+            <h3 class="dance-modal__section-title">Ce vei invata</h3>
+            <div class="dance-modal__styles-grid">
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="dansfundamental.jpg.lnk" alt="Fundamente" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Fundamente</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Fundamente Dans</h4>
+                        <p>Coordonare, ritm si postura — cele trei piloane ale oricarui dansator. Incepem de la zero, fara presiune, doar distractie si progres.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="dans pentru copii.jpg.lnk" alt="Dans pentru Copii" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Copii 6-12</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Dans pentru Copii (6-12 ani)</h4>
+                        <p>Clase prietenoase si energice gandite special pentru cei mici. Joc, muzica si primele miscari de dans intr-un mediu sigur si vesel.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="dansincepatori13+.jpg.lnk" alt="Adulti Incepatori" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Adulti</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Adulti Incepatori (13+)</h4>
+                        <p>Nu conteaza varsta sau experienta — toata lumea poate dansa! Clase relaxate unde scopul principal este sa te simti bine si sa descoperi ritmul.</p>
+                    </div>
+                </div>
+                <div class="dance-modal__style-block">
+                    <div class="dance-modal__img-placeholder">
+                        <img src="danceintro.jpg.lnk" alt="Showdance Intro" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;">dans · Showdance</span>
+                    </div>
+                    <div class="dance-modal__style-text">
+                        <h4>Intro Showdance</h4>
+                        <p>Prima ta coregrafie de grup! Elevi mai avansati din categoria Beginners invata sa danseze sincron — un pas spre spectacol.</p>
+                    </div>
+                </div>
+            </div>
+            <h3 class="dance-modal__section-title">Profesorii nostri</h3>
+            <div class="dance-modal__teachers-grid">
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="girl6.jpg" alt="Ioana" onerror="this.style.display='none'; this.parentElement.textContent='I'"></div>
+                    <div class="dance-modal__teacher-name">Ioana Florea</div>
+                    <div class="dance-modal__teacher-role">Copii Beginners</div>
+                    <div class="dance-modal__teacher-exp">5 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="boy2.jpg" alt="Andrei" onerror="this.style.display='none'; this.parentElement.textContent='A'"></div>
+                    <div class="dance-modal__teacher-name">Andrei Vasile</div>
+                    <div class="dance-modal__teacher-role">Adulti Beginners</div>
+                    <div class="dance-modal__teacher-exp">4 ani experienta</div>
+                </div>
+                <div class="dance-modal__teacher-card">
+                    <div class="dance-modal__teacher-avatar"><img src="boy3.jpg" alt="Carmen" onerror="this.style.display='none'; this.parentElement.textContent='C'"></div>
+                    <div class="dance-modal__teacher-name">Carmio Dima</div>
+                    <div class="dance-modal__teacher-role">Showdance Intro</div>
+                    <div class="dance-modal__teacher-exp">6 ani experienta</div>
+                </div>
+            </div>
+            <a href="#inregistrare" class="dance-modal__enroll-btn" onclick="closeModal('modal-beginners')">Inscrie-te la Beginners ⭐</a>
+        </div>
+    </div>
+</div>
 
-    <!-- Divider care merge în direcția opusă -->
-    <div class="arrows-divider pulse" style="animation-direction: reverse; transform: rotate(180deg);"></div>
+<!-- ══ PAGE ══ -->
+<header class="header">
+    <div class="header__logo">
+        <div class="header__logo-icon">
+            <div class="header__logo-bar"></div>
+            <div class="header__logo-bar"></div>
+            <div class="header__logo-bar"></div>
+        </div>
+        <div class="header__logo-text">beat MOTION</div>
+    </div>
+    <nav class="nav">
+        <button class="nav__hamburger" id="hamburger" aria-label="Meniu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__list" id="navList">
+            <li><a href="#home" class="nav__link">Acasa</a></li>
+            <li><a href="#servicii" class="nav__link">Servicii</a></li>
+            <li><a href="#orar" class="nav__link">Orar / Preturi</a></li>
+            <li><a href="#inregistrare" class="nav__link nav__link--cta">Inregistrare</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <footer>
-        <p>&copy; 2026 Beat Motion Studio. Mișcarea e viață.</p>
-    </footer>
+<section class="hero" id="home">
+    <span class="hero__badge">✨ Studio de Dans · Chisinau</span>
+    <h1 class="hero__title">DANSEAZA PE<br>RITMUL TAU</h1>
+    <p class="hero__subtitle">Cursuri de dans profesionale pentru toate varstele si toate nivelurile.</p>
+    <div class="hero__cta-group">
+        <div class="hero__cta-btns">
+            <a href="#inregistrare" class="hero__cta--primary">Inscrie-te acum</a>
+            <a href="#servicii" class="hero__cta--secondary">Exploreaza cursuri</a>
+        </div>
+        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle dark/light mode">
+            <span class="theme-toggle__icon" id="themeIcon">🌙</span>
+            <span id="themeLabel">Dark Mode</span>
+        </button>
+    </div>
+    <div class="hero__scroll-hint">
+        <span></span>
+        Scroll
+    </div>
+</section>
 
-    <script>
-        const canvas = document.getElementById('starCanvas');
-        const ctx = canvas.getContext('2d');
+<div class="stats-row">
+    <div class="stats-row__item"><span class="stats-row__number">200+</span><span class="stats-row__label">Elevi Activi</span></div>
+    <div class="stats-row__item"><span class="stats-row__number">8</span><span class="stats-row__label">Instructori</span></div>
+    <div class="stats-row__item"><span class="stats-row__number">5</span><span class="stats-row__label">Stiluri de Dans</span></div>
+    <div class="stats-row__item"><span class="stats-row__number">3+</span><span class="stats-row__label">Ani Experienta</span></div>
+</div>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+<div class="divider"></div>
+
+<section class="services-section" id="servicii">
+    <h2 class="section-title">Stilurile Noastre</h2>
+    <p style="text-align:center; font-size:0.82rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.5; margin-bottom:28px; margin-top:-28px;">Apasa pe un card pentru mai multe detalii</p>
+    <div class="services-grid">
+        <div class="card" onclick="openModal('modal-modern')" role="button" tabindex="0" aria-label="Deschide detalii Dans Modern">
+            <div class="card__img-placeholder">
+                <img src="modernnn.jpg" alt="Dans Modern" style="width:100%;height:100%;object-fit:cover;border-radius:8px;position:absolute;inset:0;" onerror="this.style.display='none'">
+                <span style="position:relative;z-index:1;pointer-events:none;"></span>
+            </div>
+            MODERN
+            <span class="card__desc">Expresie libera</span>
+            <span class="card__click-hint">↗ Citeste mai mult</span>
+        </div>
+        <div class="card" onclick="openModal('modal-balet')" role="button" tabindex="0" aria-label="Deschide detalii Balet">
+            <div class="card__img-placeholder">
+                <img src="ballettt.jpg" alt="Balet" style="width:100%;height:100%;object-fit:cover;border-radius:8px;position:absolute;inset:0;" onerror="this.style.display='none'">
+                <span style="position:relative;z-index:1;pointer-events:none;"></span>
+            </div>
+            BALET
+            <span class="card__desc">Gratie &amp; tehnica</span>
+            <span class="card__click-hint">↗ Citeste mai mult</span>
+        </div>
+        <div class="card" onclick="openModal('modal-beginners')" role="button" tabindex="0" aria-label="Deschide detalii Beginners">
+            <div class="card__img-placeholder">
+                <img src="beginnersss - Copy.jpg" alt="Beginners" style="width:100%;height:100%;object-fit:cover;border-radius:8px;position:absolute;inset:0;" onerror="this.style.display='none'">
+                <span style="position:relative;z-index:1;pointer-events:none;"></span>
+            </div>
+            BEGINNERS
+            <span class="card__desc">Incepatori</span>
+            <span class="card__click-hint">↗ Citeste mai mult</span>
+        </div>
+    </div>
+</section>
+
+<div class="divider" style="animation-direction:reverse;"></div>
+
+<section id="orar">
+    <h2 class="section-title">Orar &amp; Preturi</h2>
+    <div class="orar-wrapper">
+        <table class="orar-table">
+            <thead>
+                <tr class="orar-table__header-main">
+                    <th rowspan="2">Stil Dans</th>
+                    <th rowspan="2">Nivel</th>
+                    <th colspan="3">Zile &amp; Ore</th>
+                    <th rowspan="2">Pret / Luna</th>
+                </tr>
+                <tr class="orar-table__header-cat">
+                    <th>Luni / Miercuri</th>
+                    <th>Marti / Joi</th>
+                    <th>Sambata</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell orar-table__cell--label" rowspan="2">Beginners</td>
+                    <td class="orar-table__cell">Copii (6-12 ani)</td>
+                    <td class="orar-table__cell orar-table__cell--avail">16:00 - 17:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--avail">10:00 - 11:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--price">800 MDL</td>
+                </tr>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell">Adulti (13+ ani)</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--avail">17:00 - 18:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--avail">11:30 - 13:00 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--price">900 MDL</td>
+                </tr>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell orar-table__cell--label" rowspan="2">Modern</td>
+                    <td class="orar-table__cell">Intermediar</td>
+                    <td class="orar-table__cell orar-table__cell--avail">18:00 - 19:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--avail">17:00 - 18:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--price">1 100 MDL</td>
+                </tr>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell">Avansat</td>
+                    <td class="orar-table__cell orar-table__cell--avail">19:30 - 21:00 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--avail">13:00 - 14:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--price">1 300 MDL</td>
+                </tr>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell orar-table__cell--label" rowspan="2">Balet</td>
+                    <td class="orar-table__cell">Clasic</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--avail">18:30 - 20:00 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--avail">10:00 - 11:30 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--price">1 200 MDL</td>
+                </tr>
+                <tr class="orar-table__row">
+                    <td class="orar-table__cell">Contemporan</td>
+                    <td class="orar-table__cell orar-table__cell--avail">18:00 - 20:00 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--avail">17:00 - 19:00 ✓</td>
+                    <td class="orar-table__cell orar-table__cell--unavail">—</td>
+                    <td class="orar-table__cell orar-table__cell--price">1 400 MDL</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="registration" id="inregistrare">
+    <div class="form-side">
+        <form id="regForm" action="#" novalidate>
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">DATE ACCES</legend>
+                <div class="form__input-group">
+                    <input class="form__input" type="text" id="user" name="username" placeholder=" " pattern="[a-z0-9]{5,}" required autocomplete="username">
+                    <label class="form__label" for="user">Username (min. 5 litere mici/cifre)</label>
+                    <span class="form__error-hint">Foloseste doar litere mici si cifre (minim 5).</span>
+                </div>
+                <div class="form__input-group">
+                    <input class="form__input" type="password" id="pass" name="password" placeholder=" " pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" required autocomplete="new-password">
+                    <label class="form__label" for="pass">Parola (Complexa)</label>
+                    <span class="form__error-hint">Minim 8 caractere, o majuscula, un numar si un simbol.</span>
+                </div>
+            </fieldset>
+            <fieldset class="form__fieldset">
+                <legend class="form__legend">REZERVARE CURS</legend>
+                <div class="form__input-group">
+                    <input class="form__input" type="date" id="date" name="date" min="2026-05-01" max="2026-05-31" required autocomplete="off">
+                    <label class="form__label form__label--static" for="date">Data Rezervarii (Mai 2026)</label>
+                </div>
+                <div class="form__input-group">
+                    <select class="form__select" id="curs" name="curs" required autocomplete="off">
+                        <option value="" disabled selected hidden></option>
+                        <option value="modern">Dans Modern</option>
+                        <option value="balet">Balet Contemporan</option>
+                        <option value="beginners">Beginners</option>
+                    </select>
+                    <label class="form__label" for="curs">Alege Stilul</label>
+                </div>
+                <div class="form__input-group">
+                    <textarea class="form__textarea" id="msg" name="msg" rows="3" placeholder=" " maxlength="200"></textarea>
+                    <label class="form__label" for="msg">Mesaj suplimentar...</label>
+                </div>
+                <div class="form__char-counter"><span id="charCount">0</span>/200</div>
+                <div class="form__input-group">
+                    <label class="form__label" style="position:static;transform:none;font-weight:900;">Culoare Tema:</label>
+                    <input class="form__input" type="color" id="themeColor" value="#d8a7d8" style="height:50px;cursor:pointer;padding:5px;" autocomplete="off">
+                </div>
+            </fieldset>
+            <div class="form__tc-wrapper">
+                <input class="form__tc-checkbox" type="checkbox" id="tcCheck" name="tcCheck">
+                <label for="tcCheck">Accept <strong>Termenii si Conditiile</strong> Beat Motion Studio</label>
+            </div>
+            <button type="submit" class="form__submit" id="submitBtn">Trimite Inscrierea 🚀</button>
+        </form>
+    </div>
+    <div class="contact-panel">
+        <div class="contact-card">
+            <h2 class="contact-card__title" style="font-family:'Permanent Marker';">CONTACT RAPID</h2>
+            <p class="contact-card__line">📍 Str. Miscarii Nr. 10, Chisinau</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Strada+Miscarii+10+Chisinau+Moldova" target="_blank" rel="noopener" class="maps-btn">🗺️ Vezi pe Google Maps</a>
+            <p class="contact-card__line">📧 beatmotion@gmail.com</p>
+            <p class="contact-card__line">📞 +373 694 20 69 69</p>
+            <div class="social-strip">
+                <a href="#" class="social-strip__btn">Instagram</a>
+                <a href="#" class="social-strip__btn">TikTok</a>
+                <a href="#" class="social-strip__btn">Facebook</a>
+            </div>
+            <div class="contact-card__quote">"Daca poti vorbi, poti canta. Daca poti merge, poti dansa."</div>
+        </div>
+        <div class="schedule-card">
+            <h3 class="schedule-card__title">📅 Program Cursuri</h3>
+            <div class="schedule-card__row"><span>🌟 Beginners Copii</span><span>L/M 16:00-17:30</span></div>
+            <div class="schedule-card__row"><span>🌟 Beginners Adulti</span><span>Ma/J 17:00-18:30</span></div>
+            <div class="schedule-card__row"><span>🔥 Modern Intermediar</span><span>L/M 18:00-19:30</span></div>
+            <div class="schedule-card__row"><span>🔥 Modern Avansat</span><span>L/M 19:30-21:00</span></div>
+            <div class="schedule-card__row"><span>🩰 Balet Clasic</span><span>Ma/J 18:30-20:00</span></div>
+            <div class="schedule-card__row"><span>🩰 Balet Contemporan</span><span>L/M 18:00-20:00</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="divider" style="animation-direction:reverse;"></div>
+
+<section class="media-section" id="media">
+    <div class="media-block">
+        <h2 class="media-block__title">📍 Gaseste-ne</h2>
+        <div class="media-block__frame-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.0!2d28.8576!3d47.0245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c3628b769a1%3A0x37d1d6305e5b4b78!2sChisinau%2C%20Moldova!5e0!3m2!1sro!2smd!4v1700000000000!5m2!1sro!2smd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Beat Motion Studio — Locatie Chisinau"></iframe>
+        </div>
+    </div>
+    <div class="media-block">
+        <h2 class="media-block__title">🎬 Vezi Studio-ul</h2>
+        <div class="media-block__frame-wrap">
+            <iframe src="https://www.youtube.com/embed/gpIC60da1eI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" title="Beat Motion Studio — Video Prezentare"></iframe>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p class="footer__text">© 2026 Beat Motion Studio | Toate drepturile rezervate.</p>
+</footer>
+
+<script>
+    /* ── Star canvas ── */
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    const stars = Array.from({ length: 100 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.1
+    }));
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        ctx.fillStyle = isDark ? 'rgba(200,170,255,0.9)' : 'white';
+        stars.forEach(s => {
+            ctx.globalAlpha = Math.abs(Math.sin(Date.now() * 0.001 * s.speed));
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+            s.y -= s.speed;
+            if (s.y < 0) s.y = canvas.height;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    /* ── Hamburger menu ── */
+    const hamburger = document.getElementById('hamburger');
+    const navList = document.getElementById('navList');
+    hamburger.addEventListener('click', () => {
+        const open = hamburger.classList.toggle('open');
+        navList.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open);
+    });
+    // Close on nav link click
+    navList.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            navList.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+        });
+    });
+    // Close on outside click
+    document.addEventListener('click', e => {
+        if (!hamburger.contains(e.target) && !navList.contains(e.target)) {
+            hamburger.classList.remove('open');
+            navList.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
         }
-        window.addEventListener('resize', resize);
-        resize();
+    });
 
-        const stars = Array.from({ length: 100 }, () => ({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2,
-            opacity: Math.random(),
-            speed: Math.random() * 0.5 + 0.2
-        }));
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
-            stars.forEach(s => {
-                ctx.globalAlpha = Math.abs(Math.sin(Date.now() * 0.001 * s.speed));
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fill();
-                s.y -= s.speed * 0.5;
-                if (s.y < 0) s.y = canvas.height;
-            });
-            requestAnimationFrame(draw);
+    /* ── Modal logic ── */
+    function openModal(id) {
+        document.getElementById(id).classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.dance-modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closeModal(this.id);
+        });
+    });
+    document.querySelectorAll('.card[role="button"]').forEach(card => {
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+        });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.dance-modal.show').forEach(m => closeModal(m.id));
         }
-        draw();
-    </script>
+    });
+
+    /* ── Theme Toggle ── */
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    const html = document.documentElement;
+    themeToggleBtn.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            html.setAttribute('data-theme', 'light');
+            themeIcon.textContent = '🌙';
+            themeLabel.textContent = 'Dark Mode';
+            const currentColor = document.getElementById('themeColor').value;
+            document.querySelector('.header').style.background = currentColor + 'cc';
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '☀️';
+            themeLabel.textContent = 'Light Mode';
+            document.querySelector('.header').style.background = '';
+        }
+    });
+
+    /* ── Theme color picker ── */
+    document.getElementById('themeColor').addEventListener('input', (e) => {
+        if (html.getAttribute('data-theme') === 'light') {
+            document.documentElement.style.setProperty('--lila-bg', e.target.value);
+            document.querySelector('.header').style.background = e.target.value + 'cc';
+        }
+    });
+
+    /* ── Char counter ── */
+    const msgArea = document.getElementById('msg');
+    const charCount = document.getElementById('charCount');
+    msgArea.addEventListener('input', () => {
+        charCount.textContent = msgArea.value.length;
+        charCount.style.color = msgArea.value.length > 180 ? '#d32f2f' : '#888';
+    });
+
+    /* ── T&C Checkbox ── */
+    const tcCheck = document.getElementById('tcCheck');
+    const submitBtn = document.getElementById('submitBtn');
+    tcCheck.addEventListener('change', () => {
+        tcCheck.checked ? submitBtn.classList.add('form__submit--active') : submitBtn.classList.remove('form__submit--active');
+    });
+
+    /* ── Form submit ── */
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!tcCheck.checked) return;
+        if (!this.checkValidity()) { this.reportValidity(); return; }
+        document.getElementById('successOverlay').classList.add('show');
+    });
+
+    /* ── Success overlay close ── */
+    document.getElementById('successCloseBtn').addEventListener('click', function() {
+        document.getElementById('successOverlay').classList.remove('show');
+        document.getElementById('regForm').reset();
+        charCount.textContent = '0';
+        tcCheck.checked = false;
+        submitBtn.classList.remove('form__submit--active');
+        document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById('successOverlay').addEventListener('click', function(e) {
+        if (e.target === this) document.getElementById('successCloseBtn').click();
+    });
+</script>
 </body>
 </html>
