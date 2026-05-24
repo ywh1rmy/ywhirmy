@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-software-signature-sha256" content="0EECCC343E8B48B536F6BEA25D20A56F8C2678F05FF3FEC8E9B1759A3E021D3A">
     <title>Beat Motion | Dance Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
@@ -127,7 +128,72 @@
         [data-theme="dark"] .dance-modal__enroll-btn:hover { background: #7c3aed; }
         [data-theme="dark"] .dance-modal__img-placeholder { background: rgba(168,85,247,0.15); border-color: #a855f7; color: #a855f7; }
 
-        /* ── HAMBURGER MENU ── */
+        [data-theme="dark"] .orar-mobile-card { background: rgba(20,12,45,0.85); border-color: #a855f7; box-shadow: 6px 6px 0 #7c3aed; }
+        [data-theme="dark"] .orar-mobile-card__header { background: #6d28d9; }
+        [data-theme="dark"] .orar-mobile-card__category { color: #c084fc; }
+        [data-theme="dark"] .orar-mobile-card__row { border-color: rgba(168,85,247,0.2); }
+        [data-theme="dark"] .orar-mobile-card__label { color: #9d8fc0; }
+        [data-theme="dark"] .orar-mobile-card__price { color: #c084fc; }
+        [data-theme="dark"] .orar-mobile-slot--avail { background: rgba(74,222,128,0.1); color: #4ade80; border-color: rgba(74,222,128,0.3); }
+        [data-theme="dark"] .orar-mobile-slot--unavail { color: #7c6fa0; }
+
+        [data-theme="dark"] .adaptive-showcase { background: radial-gradient(circle at top left, #1e1b4b, #090514); }
+        [data-theme="dark"] .adaptive-card { background-color: #1e293b; border-color: rgba(168,85,247,0.25); color: #e8e0ff; }
+        [data-theme="dark"] .adaptive-card__header { color: #c084fc; border-color: rgba(168,85,247,0.3); }
+
+       
+        [data-theme="dark"] .telemetry-bar { background: rgba(15,10,30,0.95); border-top-color: #a855f7; }
+        [data-theme="dark"] .telemetry-bar__label { color: #c084fc; }
+        [data-theme="dark"] .telemetry-bar__visit { color: #4ade80; }
+        [data-theme="dark"] .telemetry-bar__session { color: #facc15; }
+        [data-theme="dark"] .telemetry-bar__avg { color: #a855f7; }
+        [data-theme="dark"] .telemetry-optout-label { color: #9d8fc0; }
+        [data-theme="dark"] .telemetry-optout-label a { color: #c084fc; }
+
+        .telemetry-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px 30px;
+            padding: 10px 5%;
+            background: rgba(26,26,26,0.92);
+            border-top: 3px solid var(--accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background 0.4s, border-color 0.4s;
+        }
+        .telemetry-bar__item { display: flex; align-items: center; gap: 7px; }
+        .telemetry-bar__label { color: rgba(255,255,255,0.5); text-transform: uppercase; font-size: 0.68rem; letter-spacing: 2px; }
+        .telemetry-bar__visit { color: #4ade80; font-family: 'Permanent Marker', cursive; font-size: 1rem; }
+        .telemetry-bar__session { color: #facc15; font-family: 'Permanent Marker', cursive; font-size: 1rem; }
+        .telemetry-bar__avg { color: #a855f7; font-family: 'Permanent Marker', cursive; font-size: 1rem; }
+
+        .telemetry-optout-wrap {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 5%;
+            background: rgba(26,26,26,0.88);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            justify-content: center;
+        }
+        .telemetry-optout-checkbox { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+        .telemetry-optout-label {
+            font-size: 0.74rem; font-weight: 700; color: rgba(255,255,255,0.45);
+            letter-spacing: 1px; cursor: pointer; user-select: none;
+        }
+        .telemetry-optout-label a { color: rgba(255,255,255,0.6); text-decoration: underline; }
+        .telemetry-optout-label a:hover { color: var(--accent); }
+
+        .telemetry-disabled-notice {
+            display: none;
+            text-align: center;
+            padding: 10px 5%;
+            background: rgba(211,47,47,0.12);
+            border-top: 2px solid #d32f2f;
+            font-size: 0.74rem; font-weight: 700; letter-spacing: 1px; color: #f87171;
+        }
+
         .nav__hamburger {
             display: none;
             flex-direction: column;
@@ -169,7 +235,6 @@
 
         #starCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; will-change: transform; }
 
-        /* ── HEADER ── */
         .header {
             padding: 1.2rem 5%;
             display: flex; justify-content: space-between; align-items: center;
@@ -194,7 +259,6 @@
         .nav__link--cta:hover { background: var(--accent); transform: scale(1.05); }
         .nav__link--cta::after { display: none; }
 
-        /* ── HERO ── */
         .hero {
             text-align: center;
             padding: 120px 20px 100px;
@@ -240,7 +304,6 @@
         .hero__scroll-hint span { width: 2px; height: 28px; background: var(--black); display: block; }
         @keyframes bounce-hint { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
 
-        /* ── STATS ── */
         .stats-row { display: flex; justify-content: center; gap: 40px; padding: var(--space-lg) 5%; flex-wrap: wrap; background: rgba(255,255,255,0.2); border-top: var(--border-base); border-bottom: var(--border-base); transition: background 0.4s, border-color 0.4s; }
         .stats-row__item { text-align: center; }
         .stats-row__number { font-family: 'Permanent Marker', cursive; font-size: 2.4rem; color: var(--accent); display: block; line-height: 1; }
@@ -249,7 +312,6 @@
         .divider { height: 36px; background: repeating-linear-gradient(90deg, var(--accent) 0 20px, transparent 20px 40px); animation: move 2s linear infinite; opacity: 0.7; }
         @keyframes move { from { background-position: 0; } to { background-position: 40px; } }
 
-        /* ── SERVICES ── */
         .services-section { padding: var(--space-xl) 5%; }
         .services-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; min-height: 60px; position: relative; }
 
@@ -298,7 +360,6 @@
         .card:hover .card__img-placeholder { transform: scale(1.06) rotate(-3deg); }
         .card:hover .card__click-hint { opacity: 1; }
 
-        /* ── DANCE MODAL ── */
         .dance-modal { display: none; position: fixed; inset: 0; background: rgba(26,26,26,0.85); z-index: 9998; justify-content: center; align-items: flex-start; backdrop-filter: blur(8px); overflow-y: auto; padding: 30px 16px; }
         .dance-modal.show { display: flex; }
         .dance-modal__inner { background: var(--lila-bg); border: var(--border-thick); border-radius: var(--radius-lg); max-width: 860px; width: 100%; box-shadow: 20px 20px 0 var(--accent); animation: pop-in 0.45s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
@@ -330,7 +391,6 @@
         .dance-modal__enroll-btn { display: block; width: 100%; padding: 18px; background: var(--black); color: white; border: none; border-radius: var(--radius-pill); font-size: 1rem; font-weight: 900; cursor: pointer; text-align: center; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); text-decoration: none; box-shadow: var(--shadow-btn); will-change: transform; }
         .dance-modal__enroll-btn:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 8px 8px 0 var(--black); }
 
-        /* ── ORAR TABLE ── */
         #orar { padding: var(--space-xl) 5%; }
         .orar-wrapper { overflow-x: auto; border-radius: 18px; border: var(--border-thick); box-shadow: 10px 10px 0 var(--black); transition: border-color 0.4s, box-shadow 0.4s; -webkit-overflow-scrolling: touch; }
         .orar-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); font-size: 0.88rem; min-width: 650px; transition: background 0.4s; }
@@ -345,7 +405,106 @@
         .orar-table__cell--avail { background: rgba(46,125,50,0.12); color: #2e7d32; }
         .orar-table__cell--unavail { background: rgba(211,47,47,0.08); color: #b71c1c; font-size: 0.82rem; }
 
-        /* ── REGISTRATION ── */
+        .orar-mobile { display: none; flex-direction: column; gap: 16px; }
+
+        @keyframes slideInCard {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0)  scale(1);    }
+        }
+
+        .orar-mobile-card {
+            background: rgba(255,255,255,0.6);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: 6px 6px 0 var(--black);
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            animation: slideInCard 0.45s cubic-bezier(0.34,1.3,0.64,1) forwards;
+        }
+        .orar-mobile-card:nth-child(1) { animation-delay: 0.05s; }
+        .orar-mobile-card:nth-child(2) { animation-delay: 0.12s; }
+        .orar-mobile-card:nth-child(3) { animation-delay: 0.19s; }
+        .orar-mobile-card:nth-child(4) { animation-delay: 0.26s; }
+        .orar-mobile-card:nth-child(5) { animation-delay: 0.33s; }
+        .orar-mobile-card:nth-child(6) { animation-delay: 0.40s; }
+
+        .orar-mobile-card__header {
+            background: var(--accent);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .orar-mobile-card__title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.05rem;
+            color: white;
+            letter-spacing: 1px;
+        }
+        .orar-mobile-card__category {
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8);
+            background: rgba(0,0,0,0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .orar-mobile-card__body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+        .orar-mobile-card__row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(26,26,26,0.08);
+        }
+        .orar-mobile-card__row:last-child { border-bottom: none; padding-bottom: 0; }
+        .orar-mobile-card__label {
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(26,26,26,0.45);
+            min-width: 52px;
+            padding-top: 2px;
+        }
+        .orar-mobile-card__value { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; }
+        .orar-mobile-slot {
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1.5px solid transparent;
+            transition: transform 0.15s;
+        }
+        .orar-mobile-slot--avail {
+            background: rgba(46,125,50,0.12);
+            color: #2e7d32;
+            border-color: rgba(46,125,50,0.25);
+        }
+        .orar-mobile-slot--unavail {
+            color: rgba(26,26,26,0.3);
+            font-size: 0.72rem;
+        }
+        .orar-mobile-card__price {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.15rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .orar-mobile-card__price-note {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.45;
+        }
+
         .registration { display: grid; grid-template-columns: 2fr 1fr; gap: 50px; padding: 70px 8%; margin: 50px 5%; background: var(--form-bg); border-radius: var(--radius-lg); border: var(--border-thick); backdrop-filter: blur(15px); box-shadow: 20px 20px 60px rgba(0,0,0,0.1); transition: filter var(--transition-base), background 0.4s, border-color 0.4s; }
         .registration:focus-within { filter: brightness(1.04); }
         .form__fieldset { border: var(--border-base); padding: 22px; margin-bottom: 26px; border-radius: var(--radius-md); background: rgba(255,255,255,0.1); transition: border-color 0.4s, background 0.4s; }
@@ -354,7 +513,7 @@
         .form__input, .form__select, .form__textarea { width: 100%; padding: 14px; border: 2px solid var(--black); border-radius: var(--radius-sm); background: white; outline: none; font-size: 1rem; transition: border-color var(--transition-base), box-shadow var(--transition-base), background 0.4s, color 0.4s; }
         .form__input:focus, .form__select:focus, .form__textarea:focus { border-color: var(--input-focus-color); box-shadow: 0 0 0 3px rgba(21,101,192,0.15); }
         .form__input:valid:not(:placeholder-shown), .form__select:valid:not([value=""]), .form__textarea:valid:not(:placeholder-shown) { border-color: var(--input-valid-color); box-shadow: 0 0 0 3px rgba(46,125,50,0.1); }
-        .form__input:invalid:not(:placeholder-shown), .form__select:invalid:not([value=""]), .form__textarea:invalid:not(:placeholder-shown) { border-color: var(--input-invalid-color); box-shadow: 0 0 0 3px rgba(211,47,47,0.12); }
+        .form__input:invalid:not(:placeholder-shown), .form__textarea:invalid:not(:placeholder-shown) { border-color: var(--input-invalid-color); box-shadow: 0 0 0 3px rgba(211,47,47,0.12); }
         .form__label { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); transition: var(--transition-base); pointer-events: none; color: #666; }
         .form__input:focus + .form__label, .form__input:not(:placeholder-shown) + .form__label,
         .form__textarea:focus + .form__label, .form__textarea:not(:placeholder-shown) + .form__label { top: -12px; left: 10px; font-size: 0.82rem; font-weight: 900; background: var(--white); padding: 2px 8px; color: var(--accent); border: var(--border-base); border-radius: 5px; }
@@ -373,7 +532,6 @@
         @keyframes pulse-btn { 0%,100% { box-shadow: 0 0 0 0 rgba(94,23,235,0.5); } 50% { box-shadow: 0 0 0 12px rgba(94,23,235,0); } }
         @keyframes loading-pulse { 0% { transform: scale(1); } 50% { transform: scale(0.97); box-shadow: inset 0 0 20px rgba(255,255,255,0.3); } 100% { transform: scale(1); } }
 
-        /* ── SUCCESS OVERLAY ── */
         #successOverlay { display: none; position: fixed; inset: 0; background: rgba(26,26,26,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(8px); padding: 20px; }
         #successOverlay.show { display: flex; }
         .success-box { background: var(--lila-bg); border: 4px solid var(--black); border-radius: var(--radius-lg); padding: 50px 60px; text-align: center; box-shadow: 20px 20px 0 var(--accent); animation: pop-in 0.5s cubic-bezier(0.34,1.56,0.64,1); max-width: 460px; width: 100%; }
@@ -384,7 +542,6 @@
         .success-box__close { padding: 13px 36px; background: var(--accent); color: white; border: var(--border-thick); border-radius: var(--radius-pill); font-weight: 900; font-size: 0.95rem; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition-base); }
         .success-box__close:hover { background: var(--black); transform: translateY(-3px); }
 
-        /* ── CONTACT PANEL ── */
         .contact-panel { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
         .contact-card { background: var(--black); color: white; padding: 26px; border-radius: 18px; transform: rotate(2deg); transition: background 0.4s, border-color 0.4s; }
         .contact-card__title { font-family: 'Permanent Marker'; margin-bottom: 18px; font-size: 1.1rem; }
@@ -400,7 +557,6 @@
         .schedule-card__row { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.2); gap: 8px; }
         .schedule-card__row:last-child { border-bottom: none; }
 
-        /* ── MEDIA SECTION ── */
         .media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 70px 8%; margin: 0 5% 50px; background: var(--form-bg); border-radius: var(--radius-lg); border: var(--border-thick); backdrop-filter: blur(15px); box-shadow: 20px 20px 60px rgba(0,0,0,0.1); transition: background 0.4s, border-color 0.4s; }
         .media-block { display: flex; flex-direction: column; gap: 14px; }
         .media-block__title { font-family: 'Permanent Marker', cursive; font-size: 1.3rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
@@ -409,18 +565,93 @@
         .media-block__frame-wrap:hover { box-shadow: var(--shadow-hover); }
         .media-block__frame-wrap iframe { width: 100%; height: 300px; border: none; display: block; }
 
-        /* ── FOOTER ── */
         .footer { text-align: center; padding: var(--space-lg); background: var(--black); color: white; margin-top: 50px; transition: background 0.4s; }
         .footer__text { opacity: 0.7; font-size: 0.88rem; letter-spacing: 1px; }
 
-        /* ════════════════════════════════
-           RESPONSIVE — TABLET (≤900px)
-        ════════════════════════════════ */
+        .adaptive-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 40px;
+            background-color: #0f172a;
+        }
+
+        .adaptive-card {
+            flex: 1 1 calc(33.333% - 20px);
+            min-width: 280px;
+            background-color: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            color: #f8fafc;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .adaptive-card__header {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .adaptive-card__body {
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.7;
+            color: rgba(248,250,252,0.75);
+        }
+
+        .adaptive-card:hover { transform: translateY(-6px); }
+
+        @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+            .adaptive-card {
+                background-color: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            .adaptive-showcase {
+                background: radial-gradient(circle at top left, #1e1b4b, #090514);
+            }
+        }
+
+        @supports not (backdrop-filter: blur(10px)) {
+            .adaptive-card {
+                background-image: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.08),
+                    0 20px 40px rgba(0,0,0,0.6),
+                    0 4px 12px rgba(94,23,235,0.25);
+                border: 1px solid rgba(94,23,235,0.3);
+            }
+            .adaptive-showcase {
+                background: linear-gradient(160deg, #0d1b2a 0%, #090514 60%, #1a0533 100%);
+            }
+        }
+
+        #adaptive-section { padding: var(--space-xl) 5%; }
+
+        .adaptive-showcase-label {
+            display: inline-block;
+            background: rgba(94,23,235,0.12);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-pill);
+            color: var(--accent);
+            font-size: 0.68rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 900px) {
             .header { padding: 1rem 4%; }
             .header__logo-text { font-size: 1.4rem; }
-
-            /* Nav hamburger */
             .nav__hamburger { display: flex; }
             .nav { position: relative; }
             .nav__list {
@@ -444,75 +675,53 @@
             .nav__link::after { display: none; }
             .nav__link--cta { margin: 8px 14px; border-radius: var(--radius-pill); text-align: center; display: block; }
             [data-theme="dark"] .nav__list { background: #0f0a1e; border-color: #a855f7; }
-
             .hero { padding: 100px 20px 90px; }
             .hero::after { width: 280px; height: 280px; }
             .hero::before { width: 400px; height: 400px; }
-
             .stats-row { gap: 20px; }
             .stats-row__number { font-size: 2rem; }
-
-            /* Cards — 2 per row on tablet */
             .card { width: calc(50% - 12px); max-width: none; }
-
             .registration { grid-template-columns: 1fr; gap: 30px; padding: 50px 6%; margin: 40px 4%; }
             .contact-card, .schedule-card { transform: none; }
-
             .media-section { grid-template-columns: 1fr; gap: 28px; padding: 50px 6%; margin: 0 4% 40px; }
             .media-block__frame-wrap iframe { height: 260px; }
-
             .dance-modal__styles-grid { grid-template-columns: 1fr 1fr; }
+            .adaptive-card { flex: 1 1 calc(50% - 20px); }
+            .telemetry-bar { gap: 12px 20px; font-size: 0.72rem; }
         }
 
-        /* ════════════════════════════════
-           RESPONSIVE — MOBILE (≤600px)
-        ════════════════════════════════ */
         @media (max-width: 600px) {
             .header { padding: 0.9rem 4%; }
             .header__logo-text { font-size: 1.25rem; }
             .header__logo-icon { width: 30px; height: 22px; }
-
             .hero { padding: 90px 16px 80px; min-height: 100svh; }
             .hero::after { width: 220px; height: 220px; }
             .hero__badge { font-size: 0.62rem; letter-spacing: 2px; padding: 7px 14px; }
             .hero__subtitle { font-size: 0.95rem; }
             .hero__cta--primary, .hero__cta--secondary { padding: 13px 26px; font-size: 0.85rem; letter-spacing: 1px; }
             .theme-toggle { padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1px; }
-
             .stats-row { gap: 14px; padding: 24px 4%; }
             .stats-row__number { font-size: 1.8rem; }
             .stats-row__label { font-size: 0.65rem; letter-spacing: 1px; }
-
             .services-section { padding: 50px 4%; }
-            /* Cards — 1 per row on mobile */
             .card { width: 100%; max-width: 320px; margin: 0 auto; }
-
             #orar { padding: 50px 4%; }
-            .orar-wrapper { border-radius: 12px; }
-            .orar-table { font-size: 0.78rem; min-width: 560px; }
-            .orar-table__header-main th,
-            .orar-table__cell { padding: 10px 8px; }
-            .orar-table__cell--label { padding: 12px 8px; font-size: 0.82rem; }
-
+            .orar-wrapper { display: none; }
+            .orar-mobile { display: flex; }
             .registration { padding: 36px 5%; margin: 28px 3%; border-radius: 20px; }
             .form__fieldset { padding: 18px 14px; }
             .form__legend { font-size: 1.1rem; }
             .form__input, .form__select, .form__textarea { padding: 12px; font-size: 0.95rem; }
             .form__submit { font-size: 1rem; padding: 16px; }
-
             .contact-card, .schedule-card { border-radius: 14px; }
             .contact-card { padding: 20px; }
             .schedule-card { padding: 18px; }
             .schedule-card__row { flex-direction: column; gap: 2px; align-items: flex-start; }
-
             .media-section { padding: 36px 5%; margin: 0 3% 36px; border-radius: 20px; }
             .media-block__frame-wrap iframe { height: 220px; }
-
             .success-box { padding: 36px 28px; }
             .success-box__emoji { font-size: 3.5rem; }
             .success-box__title { font-size: 1.5rem; }
-
-            /* Modal on mobile */
             .dance-modal { padding: 16px 12px; }
             .dance-modal__inner { border-radius: 20px; box-shadow: 10px 10px 0 var(--accent); }
             .dance-modal__header { padding: 22px 20px 18px; }
@@ -521,11 +730,12 @@
             .dance-modal__teachers-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
             .dance-modal__img-placeholder { height: 110px; }
             .dance-modal__enroll-btn { font-size: 0.9rem; padding: 15px; letter-spacing: 1px; }
+            .adaptive-showcase { padding: 24px 16px; gap: 16px; }
+            .adaptive-card { flex: 1 1 100%; min-width: 0; padding: 22px 18px; }
+            .telemetry-bar { flex-direction: column; gap: 8px; padding: 12px 5%; }
+            .telemetry-bar__item { justify-content: center; }
         }
 
-        /* ════════════════
-           SMALL MOBILE
-        ════════════════ */
         @media (max-width: 380px) {
             .hero__title { font-size: 2rem; }
             .hero__cta-btns { flex-direction: column; width: 100%; }
@@ -548,7 +758,7 @@
     </div>
 </div>
 
-<!-- MODERN MODAL -->
+
 <div class="dance-modal" id="modal-modern">
     <div class="dance-modal__inner">
         <div class="dance-modal__header">
@@ -561,8 +771,8 @@
             <div class="dance-modal__styles-grid">
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="danscontemporary.jpg.lnk" alt="Contemporary" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Contemporary</span>
+                        <img src="moderncontemporan.jpg" alt="Contemporary" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Contemporary</h4>
@@ -571,8 +781,8 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="Hip-Hop Fusion.jpg.lnk" alt="Hip-Hop Fusion" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Hip-Hop Fusion</span>
+                        <img src="danshiphopmodern.jpg" alt="Hip-Hop Fusion" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Hip-Hop Fusion</h4>
@@ -581,8 +791,8 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="lyrical.jpg.lnk" alt="Lyrical" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Lyrical</span>
+                        <img src="danslyricalmodern.jpg" alt="Lyrical" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Lyrical</h4>
@@ -591,8 +801,8 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="JazzModern.jpg.lnk" alt="Jazz Modern" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Jazz Modern</span>
+                        <img src="dansjazzmodern.jpg" alt="Jazz Modern" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Jazz Modern</h4>
@@ -626,7 +836,7 @@
     </div>
 </div>
 
-<!-- BALET MODAL -->
+
 <div class="dance-modal" id="modal-balet">
     <div class="dance-modal__inner">
         <div class="dance-modal__header">
@@ -639,8 +849,8 @@
             <div class="dance-modal__styles-grid">
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="baletclasic.jpg.lnk" alt="Balet Clasic" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Balet Clasic</span>
+                        <img src="baletclasic.jpg" alt="Balet Clasic" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Balet Clasic</h4>
@@ -649,8 +859,8 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="baletcontemporan.jpg.lnk" alt="Balet Contemporan" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Contemporan</span>
+                        <img src="baletcontemporan.jpg" alt="Balet Contemporan" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Balet Contemporan</h4>
@@ -659,8 +869,8 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="barrefitness.jpg.lnk" alt="Barre Fitness" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Barre Fitness</span>
+                        <img src="baletbarre.jpg" alt="Barre Fitness" onerror="this.style.display='none'">
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Barre Fitness</h4>
@@ -670,7 +880,7 @@
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
                         <img src="pointeworkkk.jpg" alt="Pointe Work" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Pointe Work</span>
+                        <span style="z-index:1;position:relative;"></span>
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Pointe Work</h4>
@@ -704,7 +914,7 @@
     </div>
 </div>
 
-<!-- BEGINNERS MODAL -->
+
 <div class="dance-modal" id="modal-beginners">
     <div class="dance-modal__inner">
         <div class="dance-modal__header">
@@ -717,8 +927,7 @@
             <div class="dance-modal__styles-grid">
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="dansfundamental.jpg.lnk" alt="Fundamente" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Fundamente</span>
+                        <img src="dansfundamente.jpg" alt="Fundamente" onerror="this.style.display='none'">
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Fundamente Dans</h4>
@@ -727,8 +936,7 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="dans pentru copii.jpg.lnk" alt="Dans pentru Copii" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Copii 6-12</span>
+                        <img src="danscopii.jpg" alt="Dans pentru Copii" onerror="this.style.display='none'">
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Dans pentru Copii (6-12 ani)</h4>
@@ -737,8 +945,7 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="dansincepatori13+.jpg.lnk" alt="Adulti Incepatori" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Adulti</span>
+                        <img src="dansadulti.jpg" alt="Adulti Incepatori" onerror="this.style.display='none'">
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Adulti Incepatori (13+)</h4>
@@ -747,8 +954,7 @@
                 </div>
                 <div class="dance-modal__style-block">
                     <div class="dance-modal__img-placeholder">
-                        <img src="danceintro.jpg.lnk" alt="Showdance Intro" onerror="this.style.display='none'">
-                        <span style="z-index:1;position:relative;">dans · Showdance</span>
+                        <img src="showdance.jpg" alt="Showdance Intro" onerror="this.style.display='none'">
                     </div>
                     <div class="dance-modal__style-text">
                         <h4>Intro Showdance</h4>
@@ -782,7 +988,7 @@
     </div>
 </div>
 
-<!-- ══ PAGE ══ -->
+
 <header class="header">
     <div class="header__logo">
         <div class="header__logo-icon">
@@ -800,7 +1006,9 @@
             <li><a href="#home" class="nav__link">Acasa</a></li>
             <li><a href="#servicii" class="nav__link">Servicii</a></li>
             <li><a href="#orar" class="nav__link">Orar / Preturi</a></li>
-            <li><a href="#inregistrare" class="nav__link nav__link--cta">Inregistrare</a></li>
+           <li><a href="#adaptive-section" class="nav__link">Tehnologie</a></li>
+<li><a href="system-control.html" class="nav__link">⚙️ Control</a></li>
+<li><a href="#inregistrare" class="nav__link nav__link--cta">Inregistrare</a></li>
         </ul>
     </nav>
 </header>
@@ -858,7 +1066,7 @@
         </div>
         <div class="card" onclick="openModal('modal-beginners')" role="button" tabindex="0" aria-label="Deschide detalii Beginners">
             <div class="card__img-placeholder">
-                <img src="beginnersss - Copy.jpg" alt="Beginners" style="width:100%;height:100%;object-fit:cover;border-radius:8px;position:absolute;inset:0;" onerror="this.style.display='none'">
+                <img src="beginnersssCopy.jpg" alt="Beginners" style="width:100%;height:100%;object-fit:cover;border-radius:8px;position:absolute;inset:0;" onerror="this.style.display='none'">
                 <span style="position:relative;z-index:1;pointer-events:none;"></span>
             </div>
             BEGINNERS
@@ -872,6 +1080,8 @@
 
 <section id="orar">
     <h2 class="section-title">Orar &amp; Preturi</h2>
+
+    <!-- Desktop table -->
     <div class="orar-wrapper">
         <table class="orar-table">
             <thead>
@@ -936,9 +1146,132 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Mobile cards -->
+    <div class="orar-mobile">
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">⭐ Beginners Copii</span>
+                <span class="orar-mobile-card__category">6–12 ani</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row">
+                    <span class="orar-mobile-card__label">L / M</span>
+                    <div class="orar-mobile-card__value">
+                        <span class="orar-mobile-slot orar-mobile-slot--avail">16:00 – 17:30</span>
+                    </div>
+                </div>
+                <div class="orar-mobile-card__row">
+                    <span class="orar-mobile-card__label">Ma / J</span>
+                    <div class="orar-mobile-card__value">
+                        <span class="orar-mobile-slot orar-mobile-slot--unavail">—</span>
+                    </div>
+                </div>
+                <div class="orar-mobile-card__row">
+                    <span class="orar-mobile-card__label">Sâm</span>
+                    <div class="orar-mobile-card__value">
+                        <span class="orar-mobile-slot orar-mobile-slot--avail">10:00 – 11:30</span>
+                    </div>
+                </div>
+                <div class="orar-mobile-card__row">
+                    <span class="orar-mobile-card__label">Pret</span>
+                    <div class="orar-mobile-card__value">
+                        <span class="orar-mobile-card__price">800 MDL <span class="orar-mobile-card__price-note">/ luna</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">⭐ Beginners Adulti</span>
+                <span class="orar-mobile-card__category">13+ ani</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">L / M</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--unavail">—</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Ma / J</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">17:00 – 18:30</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Sâm</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">11:30 – 13:00</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Pret</span><div class="orar-mobile-card__value"><span class="orar-mobile-card__price">900 MDL <span class="orar-mobile-card__price-note">/ luna</span></span></div></div>
+            </div>
+        </div>
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">🔥 Modern Intermediar</span>
+                <span class="orar-mobile-card__category">Modern</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">L / M</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">18:00 – 19:30</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Ma / J</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">17:00 – 18:30</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Sâm</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--unavail">—</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Pret</span><div class="orar-mobile-card__value"><span class="orar-mobile-card__price">1 100 MDL <span class="orar-mobile-card__price-note">/ luna</span></span></div></div>
+            </div>
+        </div>
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">🔥 Modern Avansat</span>
+                <span class="orar-mobile-card__category">Modern</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">L / M</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">19:30 – 21:00</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Ma / J</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--unavail">—</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Sâm</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">13:00 – 14:30</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Pret</span><div class="orar-mobile-card__value"><span class="orar-mobile-card__price">1 300 MDL <span class="orar-mobile-card__price-note">/ luna</span></span></div></div>
+            </div>
+        </div>
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">🩰 Balet Clasic</span>
+                <span class="orar-mobile-card__category">Balet</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">L / M</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--unavail">—</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Ma / J</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">18:30 – 20:00</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Sâm</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">10:00 – 11:30</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Pret</span><div class="orar-mobile-card__value"><span class="orar-mobile-card__price">1 200 MDL <span class="orar-mobile-card__price-note">/ luna</span></span></div></div>
+            </div>
+        </div>
+        <div class="orar-mobile-card">
+            <div class="orar-mobile-card__header">
+                <span class="orar-mobile-card__title">🩰 Balet Contemporan</span>
+                <span class="orar-mobile-card__category">Balet</span>
+            </div>
+            <div class="orar-mobile-card__body">
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">L / M</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">18:00 – 20:00</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Ma / J</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--avail">17:00 – 19:00</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Sâm</span><div class="orar-mobile-card__value"><span class="orar-mobile-slot orar-mobile-slot--unavail">—</span></div></div>
+                <div class="orar-mobile-card__row"><span class="orar-mobile-card__label">Pret</span><div class="orar-mobile-card__value"><span class="orar-mobile-card__price">1 400 MDL <span class="orar-mobile-card__price-note">/ luna</span></span></div></div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+    Adaptive Showcase (Cross-Browser Fallback)
+     Cross-Browser Audit & Feature Queries Designed by: Rotarenco Loredana | Data: 19.05.2026
+     ═══════════════════════════════════════════════════════════════════ -->
+<section id="adaptive-section">
+    <h2 class="section-title">Tehnologie Adaptiva</h2>
+    <p style="text-align:center; font-size:0.82rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.5; margin-bottom:10px; margin-top:-28px;">Cross-Browser Feature Queries · @supports</p>
+    <p style="text-align:center; font-size:0.78rem; font-weight:600; opacity:0.45; margin-bottom:32px;">Interfata se adapteaza automat la capabilitatile browserului tau</p>
+
+    <section class="adaptive-showcase">
+        <div class="adaptive-card">
+            <div class="adaptive-card__header">Modulul 01</div>
+            <p class="adaptive-card__body">Sistem de interfata rezistent la erori si compatibil retroactiv.</p>
+        </div>
+        <div class="adaptive-card">
+            <div class="adaptive-card__header">Modulul 02</div>
+            <p class="adaptive-card__body">Fallback automat la nivel de layout engine prin Feature Queries.</p>
+        </div>
+        <div class="adaptive-card">
+            <div class="adaptive-card__header">Modulul 03</div>
+            <p class="adaptive-card__body">Suport complet pentru randare pe GPU sau CPU legacy.</p>
+        </div>
+    </section>
+</section>
+
+<div class="divider" style="animation-direction:reverse;"></div>
 
 <section class="registration" id="inregistrare">
     <div class="form-side">
@@ -976,10 +1309,6 @@
                     <label class="form__label" for="msg">Mesaj suplimentar...</label>
                 </div>
                 <div class="form__char-counter"><span id="charCount">0</span>/200</div>
-                <div class="form__input-group">
-                    <label class="form__label" style="position:static;transform:none;font-weight:900;">Culoare Tema:</label>
-                    <input class="form__input" type="color" id="themeColor" value="#d8a7d8" style="height:50px;cursor:pointer;padding:5px;" autocomplete="off">
-                </div>
             </fieldset>
             <div class="form__tc-wrapper">
                 <input class="form__tc-checkbox" type="checkbox" id="tcCheck" name="tcCheck">
@@ -992,13 +1321,15 @@
         <div class="contact-card">
             <h2 class="contact-card__title" style="font-family:'Permanent Marker';">CONTACT RAPID</h2>
             <p class="contact-card__line">📍 Str. Miscarii Nr. 10, Chisinau</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=Strada+Miscarii+10+Chisinau+Moldova" target="_blank" rel="noopener" class="maps-btn">🗺️ Vezi pe Google Maps</a>
+           
+            <a href="https://www.google.com/maps/search/?api=1&query=Strada+Miscarii+10+Chisinau+Moldova" target="_blank" rel="noopener noreferrer" class="maps-btn">🗺️ Vezi pe Google Maps</a>
             <p class="contact-card__line">📧 beatmotion@gmail.com</p>
             <p class="contact-card__line">📞 +373 694 20 69 69</p>
             <div class="social-strip">
-                <a href="#" class="social-strip__btn">Instagram</a>
-                <a href="#" class="social-strip__btn">TikTok</a>
-                <a href="#" class="social-strip__btn">Facebook</a>
+               
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-strip__btn">Instagram</a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-strip__btn">TikTok</a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-strip__btn">Facebook</a>
             </div>
             <div class="contact-card__quote">"Daca poti vorbi, poti canta. Daca poti merge, poti dansa."</div>
         </div>
@@ -1020,23 +1351,69 @@
     <div class="media-block">
         <h2 class="media-block__title">📍 Gaseste-ne</h2>
         <div class="media-block__frame-wrap">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.0!2d28.8576!3d47.0245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c3628b769a1%3A0x37d1d6305e5b4b78!2sChisinau%2C%20Moldova!5e0!3m2!1sro!2smd!4v1700000000000!5m2!1sro!2smd" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Beat Motion Studio — Locatie Chisinau"></iframe>
+            
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.0!2d28.8576!3d47.0245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c3628b769a1%3A0x37d1d6305e5b4b78!2sChisinau%2C%20Moldova!5e0!3m2!1sro!2smd!4v1700000000000!5m2!1sro!2smd"
+                title="Beat Motion Studio — Locatie Chisinau"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                sandbox="allow-scripts allow-same-origin"
+                allowfullscreen>
+            </iframe>
         </div>
     </div>
     <div class="media-block">
         <h2 class="media-block__title">🎬 Vezi Studio-ul</h2>
         <div class="media-block__frame-wrap">
-            <iframe src="https://www.youtube.com/embed/gpIC60da1eI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" title="Beat Motion Studio — Video Prezentare"></iframe>
+           
+                src="https://www.youtube-nocookie.com/embed/gpIC60da1eI"
+                title="Beat Motion Studio — Video Prezentare"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-presentation"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
         </div>
     </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════════
+     PERECHEA IV: Telemetrie Persistentă — Telemetry Bar (UI)
+     State Preservation Engineering: Web Storage Persistence validated by: Rotarenco Loredana | 19.05.2026
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="telemetry-bar" id="telemetryBar">
+    <div class="telemetry-bar__item">
+        <span class="telemetry-bar__label">📊 Vizita #</span>
+        <span class="telemetry-bar__visit" id="tBarVisit">—</span>
+    </div>
+    <div class="telemetry-bar__item">
+        <span class="telemetry-bar__label">⏱ Sesiune start</span>
+        <span class="telemetry-bar__session" id="tBarSession">—</span>
+    </div>
+    <div class="telemetry-bar__item">
+        <span class="telemetry-bar__label">📈 Durata medie</span>
+        <span class="telemetry-bar__avg" id="tBarAvg">—</span>
+    </div>
+</div>
+
+
+<div class="telemetry-optout-wrap" id="telemetryOptoutWrap">
+    <input type="checkbox" class="telemetry-optout-checkbox" id="gdprOptout">
+    <label class="telemetry-optout-label" for="gdprOptout">
+        Refuza cookies/telemetrie — <a href="#" onclick="return false;">Politica de Confidentialitate</a>
+    </label>
+</div>
+<div class="telemetry-disabled-notice" id="telemetryDisabledNotice">
+    🚫 Telemetria a fost dezactivata. Toate datele locale au fost sterse. (GDPR Compliant)
+</div>
+
 <footer class="footer">
+   
     <p class="footer__text">© 2026 Beat Motion Studio | Toate drepturile rezervate.</p>
 </footer>
 
 <script>
-    /* ── Star canvas ── */
+   
     const canvas = document.getElementById('starCanvas');
     const ctx = canvas.getContext('2d');
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
@@ -1062,7 +1439,7 @@
     }
     draw();
 
-    /* ── Hamburger menu ── */
+   
     const hamburger = document.getElementById('hamburger');
     const navList = document.getElementById('navList');
     hamburger.addEventListener('click', () => {
@@ -1070,7 +1447,6 @@
         navList.classList.toggle('open', open);
         hamburger.setAttribute('aria-expanded', open);
     });
-    // Close on nav link click
     navList.querySelectorAll('.nav__link').forEach(link => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('open');
@@ -1078,7 +1454,6 @@
             hamburger.setAttribute('aria-expanded', 'false');
         });
     });
-    // Close on outside click
     document.addEventListener('click', e => {
         if (!hamburger.contains(e.target) && !navList.contains(e.target)) {
             hamburger.classList.remove('open');
@@ -1119,26 +1494,9 @@
     const html = document.documentElement;
     themeToggleBtn.addEventListener('click', () => {
         const isDark = html.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            html.setAttribute('data-theme', 'light');
-            themeIcon.textContent = '🌙';
-            themeLabel.textContent = 'Dark Mode';
-            const currentColor = document.getElementById('themeColor').value;
-            document.querySelector('.header').style.background = currentColor + 'cc';
-        } else {
-            html.setAttribute('data-theme', 'dark');
-            themeIcon.textContent = '☀️';
-            themeLabel.textContent = 'Light Mode';
-            document.querySelector('.header').style.background = '';
-        }
-    });
-
-    /* ── Theme color picker ── */
-    document.getElementById('themeColor').addEventListener('input', (e) => {
-        if (html.getAttribute('data-theme') === 'light') {
-            document.documentElement.style.setProperty('--lila-bg', e.target.value);
-            document.querySelector('.header').style.background = e.target.value + 'cc';
-        }
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        themeIcon.textContent = isDark ? '🌙' : '☀️';
+        themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
     });
 
     /* ── Char counter ── */
@@ -1176,6 +1534,207 @@
     document.getElementById('successOverlay').addEventListener('click', function(e) {
         if (e.target === this) document.getElementById('successCloseBtn').click();
     });
+
+    /* ═══════════════════════════════════════════════════════════════════
+       ZIUA 11 — PERECHEA IV: UI Telemetry & State Persistence Engine
+       State Preservation Engineering: Web Storage Persistence validated by: Rotarenco Loredana | 19.05.2026
+       ═══════════════════════════════════════════════════════════════════ */
+    (function () {
+        'use strict';
+
+        
+        let gdprOptedOut = false;
+        try {
+            gdprOptedOut = localStorage.getItem('utm_gdpr_optout') === '1';
+        } catch (e) {
+            gdprOptedOut = false;
+        }
+
+        const gdprCheckbox   = document.getElementById('gdprOptout');
+        const telemetryBar   = document.getElementById('telemetryBar');
+        const optoutWrap     = document.getElementById('telemetryOptoutWrap');
+        const disabledNotice = document.getElementById('telemetryDisabledNotice');
+
+       
+        if (gdprCheckbox) gdprCheckbox.checked = gdprOptedOut;
+        function applyOptoutUI(opted) {
+            if (opted) {
+                telemetryBar.style.display    = 'none';
+                disabledNotice.style.display  = 'block';
+            } else {
+                telemetryBar.style.display    = '';
+                disabledNotice.style.display  = 'none';
+            }
+        }
+        applyOptoutUI(gdprOptedOut);
+        if (gdprCheckbox) {
+            gdprCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                 
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    localStorage.setItem('utm_gdpr_optout', '1');
+                    applyOptoutUI(true);
+                    console.warn('%c[GDPR] Telemetria dezactivata. Storage sters.', 'color:#f87171;font-weight:bold;');
+                } else {
+                    localStorage.removeItem('utm_gdpr_optout');
+                    applyOptoutUI(false);
+                  
+                    initTelemetry();
+                    console.log('%c[GDPR] Telemetria reactivata.', 'color:#4ade80;font-weight:bold;');
+                }
+            });
+        }
+
+      
+        function initTelemetry() {
+            
+            let visitCount;
+            try {
+                let raw = localStorage.getItem('utm_telemetry_visits');
+                if (raw === null) {
+                    visitCount = 1;
+                } else {
+                   
+                    let parsed = parseInt(raw, 10);
+                    if (isNaN(parsed) || parsed < 0) {
+                      
+                        console.warn('%c[TELEMETRIE] Valoare corupta detectata in utm_telemetry_visits. Resetare la 1.', 'color:#facc15;');
+                        visitCount = 1;
+                    } else {
+                        visitCount = parsed + 1;
+                    }
+                }
+                localStorage.setItem('utm_telemetry_visits', visitCount);
+            } catch (e) {
+                console.error('[TELEMETRIE] Eroare localStorage:', e);
+                visitCount = 1;
+            }
+
+        
+            let sessionStartTime;
+            let sessionStartMs;
+            try {
+                let storedStart = sessionStorage.getItem('utm_session_start_time');
+                let storedStartMs = sessionStorage.getItem('utm_session_start_ms');
+                if (storedStart === null) {
+                    const now = new Date();
+                    sessionStartTime = now.toTimeString().split(' ')[0]; // HH:MM:SS
+                    sessionStartMs   = now.getTime();
+                    sessionStorage.setItem('utm_session_start_time', sessionStartTime);
+                    sessionStorage.setItem('utm_session_start_ms',   String(sessionStartMs));
+                } else {
+                    sessionStartTime = storedStart;
+                    sessionStartMs   = parseInt(storedStartMs, 10) || Date.now();
+                }
+            } catch (e) {
+                console.error('[TELEMETRIE] Eroare sessionStorage:', e);
+                const now = new Date();
+                sessionStartTime = now.toTimeString().split(' ')[0];
+                sessionStartMs   = now.getTime();
+            }
+
+            let avgDuration = '—';
+            try {
+                let raw = localStorage.getItem('utm_session_durations');
+                let durations = [];
+                if (raw !== null) {
+                    try {
+                        let parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) {
+                            durations = parsed.filter(n => typeof n === 'number' && !isNaN(n) && n >= 0);
+                        } else {
+                            throw new Error('Nu este array');
+                        }
+                    } catch (parseErr) {
+                        console.warn('[TELEMETRIE] Array durate corupt — resetare.', parseErr);
+                        durations = [];
+                        localStorage.removeItem('utm_session_durations');
+                    }
+                }
+                if (durations.length > 0) {
+                    const sum = durations.reduce((a, b) => a + b, 0);
+                    const avg = Math.round(sum / durations.length);
+                    avgDuration = avg + 's';
+                }
+            } catch (e) {
+                console.error('[TELEMETRIE] Eroare citire durate:', e);
+            }
+
+            const tBarVisit   = document.getElementById('tBarVisit');
+            const tBarSession = document.getElementById('tBarSession');
+            const tBarAvg     = document.getElementById('tBarAvg');
+            if (tBarVisit)   tBarVisit.textContent   = visitCount;
+            if (tBarSession) tBarSession.textContent = sessionStartTime;
+            if (tBarAvg)     tBarAvg.textContent     = avgDuration;
+
+            const telemetryPayload = {
+                appId: 'RC251-UTM-PORTFOLIO',
+                timestamp: new Date().toISOString(),
+                userProfile: {
+                    historicalVisits: visitCount,
+                    sessionStartedAt: sessionStartTime,
+                    isNewUser: visitCount === 1
+                },
+                environment: {
+                    screenResolution: window.screen.width + 'x' + window.screen.height,
+                    userAgent: navigator.userAgent,
+                    language: navigator.language
+                }
+            };
+
+            console.group('%c[TELEMETRIE PERSISTENTA ACTIVA]', 'color:#00f2ff;font-weight:bold;font-size:11px;');
+            console.log('%cUtilizatorul se afla la vizita: %c' + visitCount, 'color:#ffffff;', 'color:#00ff66;font-weight:bold;');
+            console.log('%cSesiunea curenta a inceput la ora: %c' + sessionStartTime, 'color:#ffffff;', 'color:#ffcc00;font-weight:bold;');
+            console.log('%cDurata medie sesiuni anterioare: %c' + avgDuration, 'color:#ffffff;', 'color:#c084fc;font-weight:bold;');
+            console.log('Payload complet:', telemetryPayload);
+            console.groupEnd();
+
+        
+            window.addEventListener('beforeunload', function () {
+                try {
+                    const closeMs    = Date.now();
+                    const durationSec = Math.round((closeMs - sessionStartMs) / 1000);
+
+                    let raw = localStorage.getItem('utm_session_durations');
+                    let durations = [];
+                    if (raw !== null) {
+                        try {
+                            let parsed = JSON.parse(raw);
+                            if (Array.isArray(parsed)) {
+                                durations = parsed.filter(n => typeof n === 'number' && !isNaN(n) && n >= 0);
+                            }
+                        } catch (e) {
+                            durations = [];
+                        }
+                    }
+                    durations.push(durationSec);
+                    if (durations.length > 20) durations = durations.slice(-20);
+                    localStorage.setItem('utm_session_durations', JSON.stringify(durations));
+
+                   
+                    const sum = durations.reduce(function(a, b) { return a + b; }, 0);
+                    const avg = Math.round(sum / durations.length);
+                    console.log('%c[TELEMETRIE] Durata sesiunii curente: %c' + durationSec + 's | Media: ' + avg + 's',
+                        'color:#ffffff;', 'color:#c084fc;font-weight:bold;');
+                } catch (e) {
+                    console.error('[TELEMETRIE] Eroare la salvarea duratei sesiunii:', e);
+                }
+            }, { once: true });
+
+            if (navigator.sendBeacon) {
+                try {
+                    navigator.sendBeacon('https://analytics.rc251.utm.md/api/telemetry', JSON.stringify(telemetryPayload));
+                } catch (e) { /* beacon optional */ }
+            }
+        }
+
+        if (!gdprOptedOut) {
+            initTelemetry();
+        }
+
+    })();
+
 </script>
 </body>
 </html>
